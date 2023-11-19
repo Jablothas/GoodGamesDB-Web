@@ -1,0 +1,36 @@
+Score dump: 
+
+Gameplay Mechanics
+	-> Is the game any fun?
+
+Visuals & Presentation
+	-> Technical pleasing or great art-style?
+
+Narrative (OPTIONAL)
+	-> How was the story and characters?
+
+Sound
+	-> Great Voiceacting? Suberp sounddesign? How is the soundtrack?
+
+Content
+	-> How is the content? Is it too long or too short?
+
+Pacing
+	-> Does the game has slugs? 
+
+Balance
+	-> How is the difficulty? Too hard, too easy?
+
+Customization
+	-> Can you adjust your expierence to you preferences?
+
+User Inerface & Experience
+	-> Are the menus and interface good or clicking hell?
+
+Technical Quality
+	-> Are there major bugs, bad performance or any other annoyances?
+
+Overall Impression
+	-> Non the less: How fun was it?
+
+
