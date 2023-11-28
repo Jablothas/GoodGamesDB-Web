@@ -41,6 +41,8 @@ function get_records($db) {
         presentation,
         narrative,
         quality,
+        sound,
+        content,
         pacing,
         balance,
         ui_ux,
