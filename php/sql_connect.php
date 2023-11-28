@@ -1,13 +1,13 @@
 <?php
-
+$db = new SQLite3('../data.db');
 if (isset($_GET['method'])) {
     $method = $_GET['method'];
 
     // Call the appropriate method
     if ($method === 'get_records') {
-        get_records();
-    } elseif ($method === 'other_function') {
-        other_function();
+        get_records($db);
+    } elseif ($method === 'get_locations') {
+        get_locations($db);
     } else {
         // Handle unknown method or provide an error response
         http_response_code(400);
@@ -19,8 +19,7 @@ if (isset($_GET['method'])) {
     echo json_encode(array('error' => 'Method parameter is missing'));
 }
 
-function get_records() {
-    $db = new SQLite3('../data.db');
+function get_records($db) {
     $results = $db->query("
     SELECT 
         record_id, 
@@ -57,11 +56,24 @@ function get_records() {
     ");
 
     $data = array(); // Initialize an array to store the result
-
     while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
         $data[] = $row; // Append each row to the result array
     }
+    echo json_encode($data); // Encode the result array as JSON
+}
 
+function get_locations($db) {
+    $results = $db->query("
+    SELECT 
+        location_id,
+        name, 
+        img
+    FROM locations
+    ");
+    $data = array(); // Initialize an array to store the result
+    while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+        $data[] = $row; // Append each row to the result array
+    }
     echo json_encode($data); // Encode the result array as JSON
 }
 

@@ -1,6 +1,18 @@
 var isReplay = false;
+var currentYear;
 
 function createPanelBody(record) {
+    // Yearly spacer
+    let year = new Date(record["date_end"]).getFullYear();
+    if(currentYear == null) {
+        currentYear = year;
+        createSpacer(currentYear, true)
+    }
+    if(currentYear != year) {
+        currentYear = year;
+        createSpacer(currentYear, false)
+    }
+    //
     setReplayStatus(record["replay"]);
     // Main panel
     var mainPanel = document.createElement('div');
@@ -22,7 +34,8 @@ function createPanelBody(record) {
 
     leftPanel.appendChild(addImage(record["cover_img_path"]));
     rightPanel.appendChild(renderData(record));
-    setRecordBackground(record["location"]);
+    let loc = setRecordBackground(record["location"]);
+    mainPanel.style.backgroundImage = "url('img/locations/steam.png')"; //"url('" + setRecordBackground(record["location"]) + "')";
     return mainPanel;
 }
 
@@ -54,6 +67,12 @@ function renderData(record) {
 
 function setDates(date1, date2, status)
 {
+    const date_options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
     let container = document.createElement('div');
     // Container start date
     let container_start = document.createElement('div');
@@ -62,10 +81,12 @@ function setDates(date1, date2, status)
     let container_end = document.createElement('div');
     let date_end_icon = document.createElement('img');
     let date_end = document.createElement('div');
-    date_end_icon.src = "img/icons/date_end.png";
+    date_end_icon.src = "img/icons/date_end2.png";
+    date_end_icon.style.width = "25px";
+    date_end_icon.style.height = "25px";
     if(date1 != null) {
         date_start_icon.src = "img/icons/date_start.png";
-        date_start.textContent = new Date(date1).toLocaleDateString("en-GB");
+        date_start.textContent = new Date(date1).toLocaleDateString("en-GB", date_options);
     }
 
     if(status == "PLAYING") {
@@ -77,7 +98,9 @@ function setDates(date1, date2, status)
         date_end.textContent = "canceled"
     }
     else {
-        date_end.textContent = new Date(date2).toLocaleDateString("en-GB");
+        date_start_icon.src = "img/icons/date_start.png";
+        date_start.textContent = "--"
+        date_end.textContent = new Date(date2).toLocaleDateString("en-GB", date_options);
     } 
     container_start.appendChild(date_start_icon);
     container_start.appendChild(date_start);
@@ -94,13 +117,13 @@ function setDates(date1, date2, status)
 function setNote(note) {
     let container = document.createElement('div');
     let container_note = document.createElement('div');
-    let container_icon = document.createElement('img');
-    container_icon.src = "img/icons/note.png";
+    //let container_icon = document.createElement('img');
+    //container_icon.src = "img/icons/note.png";
     container_note.textContent = note;
-    container.appendChild(container_icon);
+    //container.appendChild(container_icon);
     container.appendChild(container_note);
     container.className = "noteContainerParent";
-    container_icon.className = "noteContainer";
+    //container_icon.className = "noteContainer";
     container_note.className = "noteContainer";
     return container;
 }
@@ -150,7 +173,10 @@ function setReplay() {
 }
 
 function setRecordBackground(location) {
-    
+    getLocations();
+    for(let item of locationList) {
+        if(item["name"].toUpperCase() == location.toUpperCase()) return "img/locations/" + item["img"];
+    }
 }
 
 function setStatus(status) {
@@ -193,5 +219,13 @@ function setReplayStatus(replay) {
     else {
         isReplay = false;
     }
+}
+
+function createSpacer(year, firstSpacer) {
+    var spacer = document.createElement('div');
+    spacer.className = "spacer";
+    spacer.textContent = year;
+    if(firstSpacer) spacer.style.marginTop = "110px";
+    document.body.appendChild(spacer);
 }
 
