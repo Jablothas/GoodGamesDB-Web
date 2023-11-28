@@ -3,14 +3,12 @@ var recordList = [];
 
 // functions
 function getData() {
-  fetch('php/sql_connect.php')
+  fetch('php/sql_connect.php?method=get_records')
       .then(response => response.json())
       .then(data => { 
           for (let i = 0; i < data.length; i++) {
               recordList.push(data[i]);
           }
-          buildGrid();
-          buildGrid();
           buildGrid();
       })
       .catch(error => {

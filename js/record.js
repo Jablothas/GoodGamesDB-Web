@@ -22,6 +22,7 @@ function createPanelBody(record) {
 
     leftPanel.appendChild(addImage(record["cover_img_path"]));
     rightPanel.appendChild(renderData(record));
+    setRecordBackground(record["location"]);
     return mainPanel;
 }
 
@@ -146,6 +147,10 @@ function setReplay() {
     icon.className = "iconReplay";
     icon.src = "img/icons/replay.png";
     return icon;
+}
+
+function setRecordBackground(location) {
+    
 }
 
 function setStatus(status) {

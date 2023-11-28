@@ -69,6 +69,9 @@ body {
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
   border: 1px solid #000;
+  background-size: cover;
+  background-position: right bottom;
+  background-attachment: fixed;
 }
 .mainPanel:hover {
   border: 1px solid #fff;
