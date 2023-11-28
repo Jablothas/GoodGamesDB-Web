@@ -35,7 +35,10 @@ function createPanelBody(record) {
     leftPanel.appendChild(addImage(record["cover_img_path"]));
     rightPanel.appendChild(renderData(record));
     let loc = setRecordBackground(record["location"]);
-    mainPanel.style.backgroundImage = "url('img/locations/steam.png')"; //"url('" + setRecordBackground(record["location"]) + "')";
+    //mainPanel.style.backgroundImage = "url('img/locations/steam.png')";
+    let url = `url('${setRecordBackground(record["location"])}')`;
+    console.log(url);
+    mainPanel.style.backgroundImage = url;
     return mainPanel;
 }
 
@@ -173,7 +176,6 @@ function setReplay() {
 }
 
 function setRecordBackground(location) {
-    getLocations();
     for(let item of locationList) {
         if(item["name"].toUpperCase() == location.toUpperCase()) return "img/locations/" + item["img"];
     }
