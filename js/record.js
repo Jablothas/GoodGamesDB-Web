@@ -34,9 +34,7 @@ function createPanelBody(record) {
 
     leftPanel.appendChild(addImage(record["cover_img_path"]));
     rightPanel.appendChild(renderData(record));
-    let loc = setRecordBackground(record["location"]);
-    //mainPanel.style.backgroundImage = "url('img/locations/steam.png')";
-    let url = `url('${setRecordBackground(record["location"])}')`;
+    let url = `url('${setRecordBackground(record["location_name"])}')`;
     console.log(url);
     mainPanel.style.backgroundImage = url;
     return mainPanel;

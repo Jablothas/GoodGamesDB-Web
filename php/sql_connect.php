@@ -48,12 +48,15 @@ function get_records($db) {
         ui_ux,
         impression,
         sum_target,
-        sum_total
+        sum_total,
+        locations.name location_name
     FROM records
     INNER JOIN score
     ON records.score = score_id
     INNER JOIN dlc
     ON records.dlc = dlc_id
+    INNER JOIN locations
+    ON records.location = locations.location_id
     ORDER BY date_end DESC
     ");
 

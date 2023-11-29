@@ -2,9 +2,13 @@
 var recordList = [];
 var locationList = [];
 
+function start() {
+    getLocations();
+    getRecords();
+}
 // functions
 function getRecords() {
-  fetch('php/sql_connect.php?method=get_records')
+    fetch('php/sql_connect.php?method=get_records')
       .then(response => response.json())
       .then(data => { 
           for (let i = 0; i < data.length; i++) {
