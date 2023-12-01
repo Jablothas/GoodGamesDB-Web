@@ -13,7 +13,6 @@ function loadLocationsForSelect() {
                 option.text = locationList[i]["name"];
                 selectElement.add(option);
             }
-            // Additional code to be executed after loading locations
         })
         .catch(error => {
             console.error('Error loading locations:', error);
