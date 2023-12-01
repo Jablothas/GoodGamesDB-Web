@@ -8,7 +8,7 @@ function loadLocationsForSelect() {
         .then(locationList => {
             let selectElement = document.getElementById("location");
             for (let i = 0; i < locationList.length; i++) {
-                var option = document.createElement("option");
+                let option = document.createElement("option");
                 option.value = locationList[i]["name"];
                 option.text = locationList[i]["name"];
                 selectElement.add(option);
