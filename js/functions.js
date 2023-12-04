@@ -39,3 +39,9 @@ function buildGrid() {
       document.body.appendChild(createPanelBody(record));
   }
 }
+
+function notify(msg, type) {
+    $.notify("" + msg,  type, 
+        { position:"right bottom" }
+      );
+}

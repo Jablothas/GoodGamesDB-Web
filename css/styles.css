@@ -9,6 +9,11 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+footer {
+  height: 25px;
+  border-top: #fff solid 2px;
+}
+
 body {
   margin-top: 100px;
   text-align: left;

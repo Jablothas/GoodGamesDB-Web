@@ -1,9 +1,16 @@
 <!DOCTYPE html>
     <head>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="js/functions.js"></script>
-    <script src="js/record.js"></script>
-    <title>GoodGamesDB 4.17</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/form.css">
+        <link rel="stylesheet" type="text/css" href="css/modal.css">
+        <script src="js/components/jquery-3.7.1.js"></script>
+        <script src="js/components/notify.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/record.js"></script>
+        <script src="js/modal.js"></script>
+        <script src="js/input.js"></script>
+        <title>GoodGamesDB 4.17</title>
     </head>
     <header>
         <div class="header">
@@ -20,5 +27,35 @@
         </div>
     </header>
     <body onload="start()">
+
+        <button id="dialogButton" onclick="dialogButtonClick()">Open Popup</button>
+        <div id="dialogModal" class="modal">
+            <!-- maybe add as js file? -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <form>
+                <div class="horizontal-div">
+                    <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/demo.png"></div>
+                    <div class="form-core">  
+                        <div>
+                            Game
+                        </div>
+                        <div>
+                        <input class="basic-input" type="text" id="title" name="title">
+                        </div>
+                        <div>
+                            <br>Location
+                        </div>
+                        <div >
+                            <select class="custom-select" id="location" name="location">
+                                <option>test</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div>Test3</div>
+                </div>
+              </form>
+            </div>    
+          </div>
     </body>
 </html>

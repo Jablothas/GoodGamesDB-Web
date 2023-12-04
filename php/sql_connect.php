@@ -2,14 +2,11 @@
 $db = new SQLite3('../data.db');
 if (isset($_GET['method'])) {
     $method = $_GET['method'];
-
-    // Call the appropriate method
     if ($method === 'get_records') {
         get_records($db);
     } elseif ($method === 'get_locations') {
         get_locations($db);
     } else {
-        // Handle unknown method or provide an error response
         http_response_code(400);
         echo json_encode(array('error' => 'Unknown method'));
     }

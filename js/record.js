@@ -37,6 +37,9 @@ function createPanelBody(record) {
     let url = `url('${setRecordBackground(record["location_name"])}')`;
     console.log(url);
     mainPanel.style.backgroundImage = url;
+    mainPanel.addEventListener("click", (event) => {
+        notify(record["name"] + " wurde angeklickt.", "success");
+    });
     return mainPanel;
 }
 
