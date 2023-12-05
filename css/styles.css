@@ -56,12 +56,45 @@ body {
 }
 
 .button {
-  background-color: #555;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   padding: 10px 20px;
   margin-left: 10px;
   text-decoration: none;
   border-radius: 5px;
+  border: 0px;
+}
+
+.button#addButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/add.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.button#numbersButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/chart.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.button#settingsButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/settings.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.button#logoutButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/logout.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.button#logoutButton:hover {
+  background: #ff0000 url('../img/buttons/logout.png') no-repeat center;
 }
 
 /* Panel design */

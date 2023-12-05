@@ -19,18 +19,17 @@
                 <h2>GoodGamesDB Web</h2>
             </div>
             <div class="buttons">
-                <a href="input.html" class="button">Add</a>
-                <a href="#" class="button">Stats</a>
-                <a href="#" class="button">Settings</a>
-                <a href="#" class="button">Logout</a>
+                <input class="search-input" type="text">
+                <button id="addButton" class="button" onclick="addButtonClick()"></button>
+                <button id="numbersButton" class="button" onclick=""></button>
+                <button id="settingsButton" class="button" onclick=""></button>
+                <button id="logoutButton" class="button" onclick="logoutButtonClick()"></button>
             </div>
         </div>
     </header>
     <body onload="start()">
-
-        <button id="dialogButton" onclick="dialogButtonClick()">Open Popup</button>
+        <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
-            <!-- maybe add as js file? -->
             <div class="modal-content">
               <span class="close">&times;</span>
               <form>
