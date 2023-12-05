@@ -1,6 +1,9 @@
 // globals
+var contentMaster = document.createElement('div');
 var recordList = [];
 var locationList = [];
+var filter = "std";
+var keyword = "";
 
 function start() {
     getLocations();
@@ -35,9 +38,31 @@ function getLocations() {
 }
 
 function buildGrid() {
-  for (let record of recordList) {
-      document.body.appendChild(createPanelBody(record));
-  }
+    switch(filter) {
+        case 'std':
+            contentMaster.innerHTML = '';
+            for (let record of recordList) {
+                contentMaster.appendChild(createPanelBody(record));
+            }
+            document.body.appendChild(contentMaster);    
+            break;
+        case 'filterByInput':
+            contentMaster.innerHTML = '';
+            for (let record of recordList) {
+                if(record["name"].toString().includes(keyword)) contentMaster.appendChild(createPanelBody(record));
+            }
+            document.body.appendChild(contentMaster);    
+            break;
+        default:
+            break;
+    }
+}
+
+function loopRecords() {
+    for (let record of recordList) {
+        contentMaster.appendChild(createPanelBody(record));
+    }
+    document.body.appendChild(contentMaster);    
 }
 
 function addButtonClick() {
@@ -58,4 +83,18 @@ function notify(msg, type) {
     $.notify("" + msg,  type, 
         { position:"right bottom" }
       );
+}
+
+function filterBySearch() {
+    let input = document.getElementById("searchbar").value.length
+    if(input > 3) {
+        filter = "filterByInput";
+        keyword = document.getElementById("searchbar").value;
+        buildGrid();
+    }
+    else {
+        filter = "std";
+        keyword = "";
+        buildGrid();
+    }
 }
