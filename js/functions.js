@@ -98,3 +98,24 @@ function filterBySearch() {
         buildGrid();
     }
 }
+
+function getPlaytime() {
+    var result = "";
+    var game = document.getElementById("title").value;
+    var typ = "playtime";
+    $.ajax({
+      url : 'php/steam_api.php',
+      type : 'GET',
+      data: {data1: typ, data2: game},
+      dataType:'json',
+      success : function(data) {              
+        var arr = JSON.stringify(data).replace("\"", "").split("-");
+        document.getElementById("playtime").value = arr[0];
+        appid = parseInt(arr[1]);
+      },
+      error : function(request,error)
+      {
+          alert("error Request: " + error + " - - request: " + JSON.stringify(request));
+      }
+    });
+  }
