@@ -47,13 +47,14 @@ div {
 
 .search-input {
     font-weight: normal;
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background: #fff url(../img/buttons/search.png) no-repeat scroll 8px 4px;
     border: 0px;
     color: #000;
     width: 350px;
     height: 30px;
     border-radius: 5px;
-    padding: 0px 25px;
+    padding: 0px 35px;
     margin-top: 0px;
 }
 

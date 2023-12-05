@@ -38,7 +38,7 @@ function createPanelBody(record) {
     console.log(url);
     mainPanel.style.backgroundImage = url;
     mainPanel.addEventListener("click", (event) => {
-        notify(record["name"] + " wurde angeklickt.", "success");
+        openRecord(record);
     });
     return mainPanel;
 }
@@ -67,6 +67,12 @@ function renderData(record) {
     container.appendChild(setDates(record["date_start"], record["date_end"], record["status"]));
     if(record["note"] != "") container.appendChild(setNote(record["note"]));
     return container;
+}
+
+function openRecord(record) {
+    notify(record["name"] + " wurde angeklickt.", "success");
+    addButtonClick()
+    document.getElementById('title').value=`${record["name"]}`
 }
 
 function setDates(date1, date2, status)
@@ -229,6 +235,6 @@ function createSpacer(year, firstSpacer) {
     spacer.className = "spacer";
     spacer.textContent = year;
     if(firstSpacer) spacer.style.marginTop = "110px";
-    document.body.appendChild(spacer);
+    contentMaster.appendChild(spacer);
 }
 

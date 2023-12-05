@@ -8,7 +8,6 @@
         <script src="js/components/notify.js"></script>
         <script src="js/functions.js"></script>
         <script src="js/record.js"></script>
-        <script src="js/modal.js"></script>
         <script src="js/input.js"></script>
         <title>GoodGamesDB 4.17</title>
     </head>
@@ -19,7 +18,7 @@
                 <h2>GoodGamesDB Web</h2>
             </div>
             <div class="buttons">
-                <input class="search-input" type="text">
+                <input class="search-input" id="searchbar" type="text" oninput="filterBySearch()">
                 <button id="addButton" class="button" onclick="addButtonClick()"></button>
                 <button id="numbersButton" class="button" onclick=""></button>
                 <button id="settingsButton" class="button" onclick=""></button>
