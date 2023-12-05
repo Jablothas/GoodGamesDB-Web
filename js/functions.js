@@ -40,6 +40,20 @@ function buildGrid() {
   }
 }
 
+function addButtonClick() {
+    let modal = document.getElementById("dialogModal");
+    let span = document.getElementsByClassName("close")[0];
+    modal.style.display = "inline-block";
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+
+function logoutButtonClick() {
+        notify("Logout is forbidden.", "error");
+    }
+
+
 function notify(msg, type) {
     $.notify("" + msg,  type, 
         { position:"right bottom" }
