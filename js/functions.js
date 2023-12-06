@@ -99,23 +99,24 @@ function filterBySearch() {
     }
 }
 
+/*
 function getPlaytime() {
-    var result = "";
     var game = document.getElementById("title").value;
-    var typ = "playtime";
+    var method = "std-fetch";
     $.ajax({
       url : 'php/steam_api.php',
       type : 'GET',
-      data: {data1: typ, data2: game},
+      data: {data1: method, data2: game},
       dataType:'json',
       success : function(data) {              
-        var arr = JSON.stringify(data).replace("\"", "").split("-");
-        document.getElementById("playtime").value = arr[0];
-        appid = parseInt(arr[1]);
+        //var arr = JSON.stringify(data).replace("\"", "").split("-");
+        //document.getElementById("playtime").value = arr[0];
+        //appid = parseInt(arr[1]);
+        notify(data);
       },
       error : function(request,error)
       {
           alert("error Request: " + error + " - - request: " + JSON.stringify(request));
       }
     });
-  }
+}*/
