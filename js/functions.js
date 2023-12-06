@@ -2,12 +2,14 @@
 var contentMaster = document.createElement('div');
 var recordList = [];
 var locationList = [];
+var playedGamesList = [];
 var filter = "std";
 var keyword = "";
 
 function start() {
     getLocations();
     getRecords();
+    findPlayedGames();
 }
 // functions
 function getRecords() {
@@ -98,3 +100,66 @@ function filterBySearch() {
         buildGrid();
     }
 }
+
+function findPlayedGames() {
+    notify("Fechting data from Steam...", "warn");
+    var method = "findOwnedGames";
+    $.ajax({
+        url: 'php/steam_api.php',
+        type: 'GET',
+        data: { method: method },
+        dataType: 'text', // Change dataType to 'text'
+        success: function (response) {
+            var data = JSON.parse(response);
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                playedGamesList.push(data[i]);
+            }
+            addSuggestionsToList();
+            const addButton = document.getElementById("addButton");
+            addButton.disabled = false;
+            notify("Data fetched from Steam.", "success");
+
+        },
+        error: function (request, error) {
+            alert("Error Request: " + error + " - - Request: " + JSON.stringify(request));
+        }
+    });
+}
+
+function addSuggestionsToList() {
+    // Get the datalist element
+    var datalist = document.getElementById("games-list");
+
+    // Clear existing options
+    datalist.innerHTML = '';
+
+    // Iterate through playedGamesList and create options
+    playedGamesList.forEach(function (game) {
+        var option = document.createElement("option");
+        option.value = game;
+        datalist.appendChild(option);
+    });
+}
+
+/*
+function getPlaytime() {
+    var game = document.getElementById("title").value;
+    var method = "std-fetch";
+    $.ajax({
+      url : 'php/steam_api.php',
+      type : 'GET',
+      data: {data1: method, data2: game},
+      dataType:'json',
+      success : function(data) {              
+        //var arr = JSON.stringify(data).replace("\"", "").split("-");
+        //document.getElementById("playtime").value = arr[0];
+        //appid = parseInt(arr[1]);
+        notify(data);
+      },
+      error : function(request,error)
+      {
+          alert("error Request: " + error + " - - request: " + JSON.stringify(request));
+      }
+    });
+}*/

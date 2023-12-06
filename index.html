@@ -19,7 +19,7 @@
             </div>
             <div class="buttons">
                 <input class="search-input" id="searchbar" type="text" oninput="filterBySearch()">
-                <button id="addButton" class="button" onclick="addButtonClick()"></button>
+                <button id="addButton" class="button" onclick="addButtonClick()" disabled></button>
                 <button id="numbersButton" class="button" onclick=""></button>
                 <button id="settingsButton" class="button" onclick=""></button>
                 <button id="logoutButton" class="button" onclick="logoutButtonClick()"></button>
@@ -34,25 +34,71 @@
               <form>
                 <div class="horizontal-div">
                     <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/demo.png"></div>
-                    <div class="form-core">  
+                    <div class="form-core">
                         <div>
                             Game
                         </div>
                         <div>
-                        <input class="basic-input" type="text" id="title" name="title">
+                            <input class="basic-input" type="text" id="title" list="games-list" name="title">
+                            <datalist id="games-list">
+                             </datalist>
                         </div>
                         <div>
                             <br>Location
                         </div>
-                        <div >
+                        <div>
                             <select class="custom-select" id="location" name="location">
                                 <option>test</option>
-                              </select>
+                            </select>
+                        </div>
+                        <div>
+                            <br>Date of start
+                        </div>
+                        <div>
+                            <input class="basic-input" type="date" id="start_date" name="start_date">
+                        </div>
+                        <div>
+                            <br>Date of finish
+                        </div>
+                        <div>
+                            <input class="basic-input" type="date" id="end_date" name="end_date">
+                        </div>
+                        <div>
+                            <br>Playtime in hours
+                        </div>
+                        <div>
+                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0 h">
+                        </div>
+                        <div>
+                            <br>Note
+                        </div>
+                        <div>
+                            <textarea class="basic-input" id="note" name="note"></textarea>
+                        </div>
+                        <div>
+                            <br>Replay
+                        </div>
+                        <div>
+                            <select class="custom-select" id="replay" name="replay">
+                                <option value="YES">YES</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div>
+                            <br>Status
+                        </div>
+                        <div>
+                            <select class="custom-select" id="status" name="status">
+                                <option value="PLAYING">PLAYING</option>
+                                <option value="COMPLETED">COMPLETED</option>
+                                <option value="CANCELED">CANCELED</option>
+                            </select>
                         </div>
                     </div>
                     <div>Test3</div>
                 </div>
-              </form>
+            </form>
+            
             </div>    
           </div>
     </body>
