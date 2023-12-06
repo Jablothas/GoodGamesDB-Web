@@ -102,7 +102,7 @@ function filterBySearch() {
 }
 
 function findPlayedGames() {
-    notify("Fechting data from Steam...", "warn");
+    notify("Fechting data from Steam... this may take a while.", "warn");
     var method = "findOwnedGames";
     $.ajax({
         url: 'php/steam_api.php',
@@ -128,18 +128,19 @@ function findPlayedGames() {
 }
 
 function addSuggestionsToList() {
-    // Get the datalist element
+    removeDuplicates();
     var datalist = document.getElementById("games-list");
-
-    // Clear existing options
     datalist.innerHTML = '';
-
-    // Iterate through playedGamesList and create options
     playedGamesList.forEach(function (game) {
         var option = document.createElement("option");
         option.value = game;
         datalist.appendChild(option);
     });
+}
+
+function removeDuplicates() {
+    var uniqueGamesSet = new Set(playedGamesList);
+    playedGamesList = Array.from(uniqueGamesSet);
 }
 
 /*
