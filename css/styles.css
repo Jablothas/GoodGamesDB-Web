@@ -76,6 +76,10 @@ body {
   background: limegreen url('../img/buttons/add.png') no-repeat center;
 }
 
+.button#addButton:disabled {
+  background: grey url('../img/buttons/add.png') no-repeat center;
+}
+
 .button#numbersButton {
   width: 50px;
   height: 30px;

@@ -19,7 +19,7 @@
             </div>
             <div class="buttons">
                 <input class="search-input" id="searchbar" type="text" oninput="filterBySearch()">
-                <button id="addButton" class="button" onclick="addButtonClick()"></button>
+                <button id="addButton" class="button" onclick="addButtonClick()" disabled></button>
                 <button id="numbersButton" class="button" onclick=""></button>
                 <button id="settingsButton" class="button" onclick=""></button>
                 <button id="logoutButton" class="button" onclick="logoutButtonClick()"></button>
@@ -39,7 +39,9 @@
                             Game
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="title" name="title" onblur="getPlaytime()">
+                            <input class="basic-input" type="text" id="title" list="games-list" name="title">
+                            <datalist id="games-list">
+                             </datalist>
                         </div>
                         <div>
                             <br>Location
@@ -65,13 +67,7 @@
                             <br>Playtime in hours
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="playtime" name="playtime">
-                        </div>
-                        <div>
-                            <br>Steam AppID
-                        </div>
-                        <div>
-                            <input class="basic-input" type="text" id="steam_app_id" name="steam_app_id">
+                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0 h">
                         </div>
                         <div>
                             <br>Note
@@ -93,9 +89,9 @@
                         </div>
                         <div>
                             <select class="custom-select" id="status" name="status">
+                                <option value="PLAYING">PLAYING</option>
                                 <option value="COMPLETED">COMPLETED</option>
                                 <option value="CANCELED">CANCELED</option>
-                                <option value="PLAYING">PLAYING</option>
                             </select>
                         </div>
                     </div>
