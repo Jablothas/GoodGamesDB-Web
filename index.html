@@ -36,20 +36,25 @@
                     <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/demo.png"></div>
                     <div class="form-core">
                         <div>
-                            Game
-                        </div>
-                        <div>
-                            <input class="basic-input" type="text" id="title" list="games-list" name="title">
-                            <datalist id="games-list">
-                             </datalist>
-                        </div>
-                        <div>
                             <br>Location
                         </div>
                         <div>
-                            <select class="custom-select" id="location" name="location">
-                                <option>test</option>
+                            <select class="basic-input" id="location" name="location" onblur="checkIfSteam()">
                             </select>
+                        </div>
+                        <div>
+                            <br>Game
+                        </div>
+                        <div>
+                            <input class="basic-input" type="text" id="title" list="games-list" name="title" onblur="checkFormByGame()">
+                            <datalist id="games-list">
+                             </datalist>
+                        </div>
+                        <div id="steam-appid-label">
+                            <br>Steam appid
+                        </div>
+                        <div>
+                            <input class="basic-input" type="text" id="steam-appid" name="steam-appid">
                         </div>
                         <div>
                             <br>Date of start
