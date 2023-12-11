@@ -3,33 +3,37 @@ function changeCover() {
     image.src = "img/covers/placeholder.png";
 }
 
-function loadLocationsForSelect() {
-    getLocationsForSelect()
-        .then(locationList => {
-            let selectElement = document.getElementById("location");
-            for (let i = 0; i < locationList.length; i++) {
-                let option = document.createElement("option");
-                option.value = locationList[i]["name"];
-                option.text = locationList[i]["name"];
-                selectElement.add(option);
+function checkFormByGame() {
+    // Steam exclusive block
+    if(checkIfSteam()) {
+        playedGamesList.forEach(function (game) {
+            if(game.split('=')[0] == document.getElementById("title").value) {
+                let appid = document.getElementById("steam-appid");
+                document.getElementById("steam-appid").value = game.split('=')[1];
+                datalist.appendChild(option);
             }
-        })
-        .catch(error => {
-            console.error('Error loading locations:', error);
         });
+    }
+    // Other blocks
 }
 
-function getLocationsForSelect() {
-    return fetch('php/sql_connect.php?method=get_locations')
-        .then(response => response.json())
-        .then(data => { 
-            for (let i = 0; i < locationList.length; i++) {
-                locationList.push(data[i]);
-            }
-            return data; 
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            throw error; 
-        });
+function checkIfSteam() {
+    let status = false;
+    let input = document.getElementById("location");
+    let appid = document.getElementById("steam-appid");
+    let appid_label = document.getElementById("steam-appid-label");
+    appid.style.display = "block";
+    appid_label.style.display = "block";
+    if (input) {
+        let location = input.value;
+        if(location == "Steam") {
+            status = true;
+        }
+        else {
+            appid.style.display = "none"; 
+            appid_label.style.display = "none";
+            status = false;
+        }
+    }
+    return status;
 }

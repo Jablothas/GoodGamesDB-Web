@@ -71,6 +71,15 @@ function addButtonClick() {
     let modal = document.getElementById("dialogModal");
     let span = document.getElementsByClassName("close")[0];
     modal.style.display = "inline-block";
+    inputCleanUp();
+    var selectElement = document.getElementById("location");
+    selectElement.innerHTML = '';
+    locationList.forEach(function (location) {
+      var option = document.createElement("option");
+      option.text = location.name;
+      selectElement.appendChild(option);
+    });
+    document.getElementById("location").focus();
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -133,7 +142,7 @@ function addSuggestionsToList() {
     datalist.innerHTML = '';
     playedGamesList.forEach(function (game) {
         var option = document.createElement("option");
-        option.value = game;
+        option.value = game.split('=')[0];
         datalist.appendChild(option);
     });
 }
@@ -141,6 +150,11 @@ function addSuggestionsToList() {
 function removeDuplicates() {
     var uniqueGamesSet = new Set(playedGamesList);
     playedGamesList = Array.from(uniqueGamesSet);
+}
+
+function inputCleanUp() {
+    document.getElementById("title").value = '';
+    document.getElementById("steam-appid").value = '';
 }
 
 /*

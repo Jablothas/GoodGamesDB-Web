@@ -39,13 +39,17 @@ function findOwnedGames($localOwnSteamGames, $localAllSteamGames) {
     foreach ($games as $game) {
         foreach ($apps as $app) {
             if ($app["appid"] == $game["appid"]) {
-                $result[] = $app["name"];
+                $result[] = $app["name"] . "=" . $app["appid"];
             }
         }
     }
-    header('Content-Type: application/json'); // Ensure that the response is treated as JSON
+    header('Content-Type: application/json');
     echo trim(json_encode($result));
-    exit; // Terminate the script to prevent additional output
+    exit;
+}
+
+function getPlaytime($appid) {
+    
 }
 
 function logfile($message) {
