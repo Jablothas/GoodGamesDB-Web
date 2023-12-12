@@ -79,10 +79,24 @@ function addButtonClick() {
       option.text = location.name;
       selectElement.appendChild(option);
     });
+    document.getElementById('start_date').value = getCurrentDate();
     document.getElementById("location").focus();
     span.onclick = function() {
         modal.style.display = "none";
     }
+}
+
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    // Pad the month and day with leading zeros if needed
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+
+    return `${year}-${month}-${day}`;
 }
 
 function logoutButtonClick() {
@@ -94,6 +108,18 @@ function notify(msg, type) {
     $.notify("" + msg,  type, 
         { position:"right bottom" }
       );
+}
+
+function showLoader(op) {
+    const loaderWrapper = document.getElementById("loader-wrapper");
+
+    if (op) {
+        // Show the loader
+        loaderWrapper.style.display = "flex";
+    } else {
+        // Hide the loader
+        loaderWrapper.style.display = "none";
+    }
 }
 
 function filterBySearch() {
@@ -156,25 +182,3 @@ function inputCleanUp() {
     document.getElementById("title").value = '';
     document.getElementById("steam-appid").value = '';
 }
-
-/*
-function getPlaytime() {
-    var game = document.getElementById("title").value;
-    var method = "std-fetch";
-    $.ajax({
-      url : 'php/steam_api.php',
-      type : 'GET',
-      data: {data1: method, data2: game},
-      dataType:'json',
-      success : function(data) {              
-        //var arr = JSON.stringify(data).replace("\"", "").split("-");
-        //document.getElementById("playtime").value = arr[0];
-        //appid = parseInt(arr[1]);
-        notify(data);
-      },
-      error : function(request,error)
-      {
-          alert("error Request: " + error + " - - request: " + JSON.stringify(request));
-      }
-    });
-}*/
