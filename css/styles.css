@@ -33,6 +33,38 @@ body {
   border-bottom: #fff solid 2px;
 }
 
+#loader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999;
+}
+
+#loader {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border: 8px solid #fff;
+  border-top: 8px solid limegreen;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+#loader-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: limegreen;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Style for the logo and text on the left */
 .logo {
   display: flex;

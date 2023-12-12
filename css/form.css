@@ -11,6 +11,37 @@ div {
     gap: 20px;
 }
 
+.header-input {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.input-container {
+    text-align: left; /* Adjust the text alignment as needed */
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.input-container > div {
+    margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+.header-input .input-container select {
+    height: 26px; /* Adjust the height as needed */
+    vertical-align: middle;
+}
+
+.small-input,
+.small-custom-select {
+    width: calc((400px - 2 * 10px) / 3); /* Calculate the width and subtract the margins */
+}
+
 .img-cover {
     width: 300px;
     height: 450px;
@@ -38,10 +69,40 @@ div {
     color: #fff;
     width: 400px;
     height: 22px;
-    
 }
 
 .basic-input:focus {
+    border-bottom: 1px solid limegreen;
+    outline: 0px;
+}
+
+.small-input {
+    font-weight: normal;
+    background-color: #1f1f1f;
+    border: 0px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    width: 125px;
+    height: 22px;
+}
+
+.small-input:focus {
+    border-bottom: 1px solid limegreen;
+    outline: 0px;
+}
+
+.textarea-input {
+    font-weight: normal;
+    background-color: #1f1f1f;
+    border: 0px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    width: 400px;
+    height: 55px;
+    resize: none;
+}
+
+.textarea-input:focus {
     border-bottom: 1px solid limegreen;
     outline: 0px;
 }
@@ -78,3 +139,136 @@ div {
     border-bottom: 1px solid limegreen;
     outline: 0px;
 }
+
+.small-custom-select {
+    font-weight: normal;
+    background-color: #1f1f1f;
+    border: 0px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+
+.small-custom-select:focus {
+    border-bottom: 1px solid limegreen;
+    outline: 0px;
+}
+
+.main-score-container {
+    display: flex;
+    margin-right: 20px;
+    /*flex-direction: column;
+    align-items: center;
+    margin-top: 10px;*/
+}
+
+.left-slider-box {
+    width: 300px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+    margin-top: 5px; /* Add some margin between the slider and checkbox */
+}
+
+.slider-value {
+    font-size: 14px;
+    margin-left: 5px;
+    padding-left: 10px;
+}
+
+.slider-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+input[type=range] {
+    width: 100%;
+    margin: 4.55px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    width: 100%;
+    height: 2.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    margin-top: -6.55px;
+    width: 25px;
+    height: 12px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 1px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ffffff;
+  }
+  input[type=range]::-moz-range-track {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    width: 100%;
+    height: 2.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 25px;
+    height: 12px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 1px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 5.55px 0;
+    color: transparent;
+    width: 100%;
+    height: 2.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #dbdbdb;
+    border: 1px solid #ffffff;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+  }
+  input[type=range]::-ms-thumb {
+    width: 25px;
+    height: 12px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-top: 0px;
+    /*Needed to keep the Edge thumb centred*/
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #ffffff;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #ffffff;
+  }
+  /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+  how to remove the virtical space around the range input in IE*/
+  @supports (-ms-ime-align:auto) {
+    /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+    input[type=range] {
+      margin: 0;
+      /*Edge starts the margin from the thumb, not the track as other browsers do*/
+    }
+  }
+  

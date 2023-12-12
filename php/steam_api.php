@@ -1,6 +1,7 @@
 <?php
 $method = "";
 $game = "";
+$appid = "";
 $remoteAllSteamGames = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json";
 $remoteOwnSteamGames = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/" .
 "?key=7BBA04785020E53FF7BE2129FFFD1B64&steamid=76561198064631353&format=json";
@@ -10,9 +11,11 @@ $localOwnSteamGames = "../profile.json";
 if (isset($_GET['method'])) {
     $method = $_GET['method'];
 }
-
 if (isset($_GET['game'])) {
     $game = $_GET['game'];
+}
+if (isset($_GET['appid'])) {
+    $appid = $_GET['appid'];
 }
 
 if (file_exists($localAllSteamGames)) unlink($localAllSteamGames);
@@ -48,8 +51,24 @@ function findOwnedGames($localOwnSteamGames, $localAllSteamGames) {
     exit;
 }
 
-function getPlaytime($appid) {
-    
+if($method == "findPlaytime") {
+    getPlaytime($appid, $localOwnSteamGames);
+}
+
+function getPlaytime($appid, $localOwnSteamGames) {
+    $own = file_get_contents($localOwnSteamGames);
+    $playtime = 0;
+    $data = json_decode($own, true);
+    $response = $data["response"];
+    $games = $response["games"];
+    $i = 0;
+    foreach($games as $game) {
+        if ($game["appid"] == $appid) {
+            $playtime = intval($game['playtime_forever']);
+        }
+        $i += 1;
+    }
+    echo intval($playtime / 60);
 }
 
 function logfile($message) {

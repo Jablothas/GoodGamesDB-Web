@@ -27,6 +27,11 @@
         </div>
     </header>
     <body onload="start()">
+        <!-- Loader -->
+        <div id="loader-wrapper">
+            <div id="loader">
+            </div>
+          </div>          
         <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
             <div class="modal-content">
@@ -35,12 +40,39 @@
                 <div class="horizontal-div">
                     <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/demo.png"></div>
                     <div class="form-core">
-                        <div>
-                            <br>Location
-                        </div>
-                        <div>
-                            <select class="basic-input" id="location" name="location" onblur="checkIfSteam()">
-                            </select>
+                        <div class="header-input">
+                            <div class="input-container">
+                                <div>
+                                    <br>Location
+                                </div>
+                                <div>
+                                    <select class="small-input" id="location" name="location" onblur="checkIfSteam()">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <div>
+                                    <br>Replay
+                                </div>
+                                <div>
+                                    <select class="small-custom-select" id="replay" name="replay">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <div>
+                                    <br>Status
+                                </div>
+                                <div>
+                                    <select class="small-custom-select" id="status" name="status" onblur="setRecordStatus()">
+                                        <option value="Playing">Playing</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Canceled">Canceled</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <br>Game
@@ -54,7 +86,7 @@
                             <br>Steam appid
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="steam-appid" name="steam-appid">
+                            <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
                         </div>
                         <div>
                             <br>Date of start
@@ -78,29 +110,126 @@
                             <br>Note
                         </div>
                         <div>
-                            <textarea class="basic-input" id="note" name="note"></textarea>
-                        </div>
-                        <div>
-                            <br>Replay
-                        </div>
-                        <div>
-                            <select class="custom-select" id="replay" name="replay">
-                                <option value="YES">YES</option>
-                                <option value="NO">NO</option>
-                            </select>
-                        </div>
-                        <div>
-                            <br>Status
-                        </div>
-                        <div>
-                            <select class="custom-select" id="status" name="status">
-                                <option value="PLAYING">PLAYING</option>
-                                <option value="COMPLETED">COMPLETED</option>
-                                <option value="CANCELED">CANCELED</option>
-                            </select>
+                            <textarea class="textarea-input" id="note" name="note" rows="3" wrap="hard" maxlength="100"></textarea>
                         </div>
                     </div>
-                    <div>Test3</div>
+                    <div>
+                        <div class="main-score-container">
+                            <div class="left-slider-box">
+                                <!-- Slider Gameplay -->
+                                <div class="slider-container">
+                                    <label for="slider1">Gameplay<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider1" min="1" max="10" value="1" oninput="updateSlider('slider1')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider1_check" name="slider1_check" onclick="disableSlider('slider1')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Presentation -->
+                                <div class="slider-container">
+                                    <label for="slider2">Presentation<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider2" min="1" max="10" value="1" oninput="updateSlider('slider2')">
+                                        <span class="slider-value"> 1</span>
+                                        <input type="checkbox" id="slider2_check" name="slider2_check" onclick="disableSlider('slider2')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Narrative -->
+                                <div class="slider-container">
+                                    <label for="slider3">Narrative<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider3" min="1" max="10" value="1" oninput="updateSlider('slider3')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider3_check" name="slider3_check" onclick="disableSlider('slider3')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Quality -->
+                                <div class="slider-container">
+                                    <label for="slider_quality">Quality<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_quality" min="1" max="10" value="1" oninput="updateSlider('slider_quality')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_quality_check" name="slider_quality_check" onclick="disableSlider('slider_quality')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Sound -->
+                                <div class="slider-container">
+                                    <label for="slider_sound">Sound<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_sound" min="1" max="10" value="1" oninput="updateSlider('slider_sound')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_sound_check" name="slider_sound_check" onclick="disableSlider('slider_sound')" checked>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-slider-box">
+
+                                <!-- Slider Content -->
+                                <div class="slider-container">
+                                    <label for="slider_content">Content<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_content" min="1" max="10" value="1" oninput="updateSlider('slider_content')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_content_check" name="slider_content_check" onclick="disableSlider('slider_content')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Pacing -->
+                                <div class="slider-container">
+                                    <label for="slider_pacing">Pacing<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_pacing" min="1" max="10" value="1" oninput="updateSlider('slider_pacing')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_pacing_check" name="slider_pacing_check" onclick="disableSlider('slider_pacing')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider Balance -->
+                                <div class="slider-container">
+                                    <label for="slider_balance">Balance<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_balance" min="1" max="10" value="1" oninput="updateSlider('slider_balance')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_balance_check" name="slider_balance_check" onclick="disableSlider('slider_balance')" checked>
+                                    </div>
+                                </div>
+
+                                <!-- Slider UI/UX -->
+                                <div class="slider-container">
+                                    <label for="slider_ui_ux">UI/UX<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_ui_ux" min="1" max="10" value="1" oninput="updateSlider('slider_ui_ux')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_ui_ux_check" name="slider_ui_ux_check" onclick="disableSlider('slider_ui_ux')" checked>
+                                    </div>
+                                </div>
+                                <!-- Slider Impression -->
+                                <div class="slider-container">
+                                    <label for="slider_impression">Impression<br>
+                                    <span style="color:grey"> bla bla</span></label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="range" id="slider_impression" min="1" max="10" value="1" oninput="updateSlider('slider_impression')">
+                                        <span class="slider-value">1</span>
+                                        <input type="checkbox" id="slider_impression_check" name="slider_impression_check" onclick="disableSlider('slider_impression')" checked>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </form>
             
