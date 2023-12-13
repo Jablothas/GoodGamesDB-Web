@@ -1,9 +1,9 @@
 <!DOCTYPE html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
-        <link rel="stylesheet" type="text/css" href="css/modal.css">
         <script src="js/components/jquery-3.7.1.js"></script>
         <script src="js/components/notify.js"></script>
         <script src="js/functions.js"></script>
@@ -34,7 +34,7 @@
           </div>          
         <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
-            <div class="modal-content">
+            <div id="modal-content" class="modal-content">
               <span class="close">&times;</span>
               <div id="img-cover-text" class="img-cover-text">Select</div>
               <form>
@@ -67,7 +67,7 @@
                                     <br>Status
                                 </div>
                                 <div>
-                                    <select class="small-custom-select" id="status" name="status" onblur="setRecordStatus()">
+                                    <select class="small-custom-select" id="status" name="status" oninput="setRecordStatus()">
                                         <option value="Playing">Playing</option>
                                         <option value="Completed">Completed</option>
                                         <option value="Canceled">Canceled</option>
@@ -84,19 +84,19 @@
                              </datalist>
                         </div>
                         <div id="steam-appid-label">
-                            <br>Steam appid
+                            <br>AppId (Steam)
                         </div>
                         <div>
                             <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
                         </div>
                         <div>
-                            <br>Date of start
+                            <br>Start date
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="start_date" name="start_date">
                         </div>
                         <div>
-                            <br>Date of finish
+                            <br>End date
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="end_date" name="end_date">
@@ -105,7 +105,7 @@
                             <br>Playtime in hours
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0 h">
+                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0">
                         </div>
                         <div>
                             <br>Note
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="main-score-container">
+                        <div class="main-score-container" id="main-score-container">
                             <div class="left-slider-box">
                                 <!-- Slider Gameplay -->
                                 <div class="slider-container">

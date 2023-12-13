@@ -3,6 +3,13 @@ var title;
 var location;
 var cover_img; 
 
+function cleanForm() {
+    document.getElementById('img-cover-text').innerText = 'Upload';
+    document.getElementById('img-cover').src = "img/covers/default.png";
+    document.getElementById("title").value = '';
+    document.getElementById("steam-appid").value = '';
+}
+
 function getPlaytime() {
     if(document.getElementById("steam-appid").value <= 0) return; 
     showLoader(true);
@@ -113,10 +120,22 @@ function checkIfSteam() {
 }
 
 function setRecordStatus() {
+    let score_container = document.getElementById("main-score-container");
+    let modal_container = document.getElementById("modal-content");
     let endDate = document.getElementById("end_date");
     let status = document.getElementById("status").value;
-    if(status == "Playing") { endDate.disabled = true; endDate.style.color = "grey"; }
-    if(status == "Canceled" || status == "Completed") { endDate.disabled = false; endDate.style.color = "#fff"; }
+    if(status == "Playing") { 
+        endDate.disabled = true; 
+        endDate.style.color = "grey"; 
+        score_container.style.display = 'none'; 
+        modal_container.style.width = "800px";
+    }
+    if(status == "Canceled" || status == "Completed") { 
+        endDate.disabled = false; 
+        endDate.style.color = "#fff";
+        score_container.style.display = 'flex';  
+        modal_container.style.width = "1410px";
+    }
 }
 
 function updateSlider(sliderId) {
