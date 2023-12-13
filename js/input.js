@@ -1,3 +1,8 @@
+// Data for sql:
+var title;
+var location;
+var cover_img; 
+
 function getPlaytime() {
     if(document.getElementById("steam-appid").value <= 0) return; 
     showLoader(true);
@@ -29,8 +34,47 @@ function getPlaytime() {
 }
 
 function changeCover() {
-    var image = document.getElementById("img-cover");
-    image.src = "img/covers/placeholder.png";
+    document.getElementById('img-cover-text').innerText = '';
+
+    // Create a file input element dynamically
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.id = 'file-input';
+    fileInput.accept = 'image/*';
+
+    // Set up an event listener for the change event
+    fileInput.addEventListener('change', function () {
+        uploadImage(fileInput);
+    });
+
+    // Trigger the click event on the file input
+    fileInput.click();
+}
+
+function uploadImage(input) {
+    var image = document.getElementById('img-cover');
+
+    if (input.files && input.files[0]) {
+        var formData = new FormData();
+        formData.append('image', input.files[0]);
+
+        // Make an AJAX request to upload the image
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'php/upload.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // On successful upload, update the image source
+                image.src = 'img/covers/' + xhr.responseText;
+                cover_img = xhr.responseText;
+            } else {
+                // Handle errors
+                console.error('Image upload failed');
+            }
+        };
+
+        xhr.send(formData);
+    }
 }
 
 function checkFormByGame() {

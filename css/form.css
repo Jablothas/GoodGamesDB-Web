@@ -1,6 +1,47 @@
+.modal {
+  display: none;
+  position: fixed; /* Use fixed position to make it float above the content */
+  z-index: 1;
+  left: 0;
+  top: -100px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #0f1114;
+  color: #fff;
+  margin: 15% auto; /* Adjust as needed to center the modal */
+  padding: 20px;
+  border: 1px solid #fff;
+  width: 1410px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 div {
     color: #fff;
 }
+
+.slider-checkbox { 
+  background-color: #fff;
+  color: #000;
+ }
 
 .horizontal-div {
     margin-left: 20px;
@@ -47,6 +88,12 @@ div {
     height: 450px;
 }
 
+.img-cover-text {
+  margin-top:  225px;
+  margin-left: 150px;
+  position: absolute;
+}
+
 .basic-info {
     width: 500px;
 }
@@ -63,12 +110,13 @@ div {
 
 .basic-input {
     font-weight: normal;
-    background-color: #1f1f1f;
+    background-color: #0f1114;
     border: 0px;
     border-bottom: 1px solid #fff;
     color: #fff;
     width: 400px;
     height: 22px;
+    color-scheme: dark;
 }
 
 .basic-input:focus {
@@ -78,7 +126,7 @@ div {
 
 .small-input {
     font-weight: normal;
-    background-color: #1f1f1f;
+    background-color: #0f1114;
     border: 0px;
     border-bottom: 1px solid #fff;
     color: #fff;
@@ -93,7 +141,7 @@ div {
 
 .textarea-input {
     font-weight: normal;
-    background-color: #1f1f1f;
+    background-color: #0f1114;
     border: 0px;
     border-bottom: 1px solid #fff;
     color: #fff;
@@ -127,7 +175,7 @@ div {
 
 .custom-select {
     font-weight: normal;
-    background-color: #1f1f1f;
+    background-color: #0f1114;
     border: 0px;
     border-bottom: 1px solid #fff;
     color: #fff;
@@ -142,7 +190,7 @@ div {
 
 .small-custom-select {
     font-weight: normal;
-    background-color: #1f1f1f;
+    background-color: #0f1114;
     border: 0px;
     border-bottom: 1px solid #fff;
     color: #fff;
@@ -163,6 +211,12 @@ div {
 
 .left-slider-box {
     width: 300px;
+    margin-top: 12px;
+}
+
+.right-slider-box {
+  width: 300px;
+  margin-top: 12px;
 }
 
 label {
@@ -184,6 +238,13 @@ input[type="checkbox"] {
     padding-right: 20px;
     padding-bottom: 5px;
 }
+
+/* CHECKMARK */
+input[type='checkbox'] {
+  accent-color: #fff;
+}
+
+/* RANGE SLIDER */
 
 input[type=range] {
     width: 100%;

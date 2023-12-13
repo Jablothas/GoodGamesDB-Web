@@ -3,7 +3,7 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12px;
   font-weight: bold;
-  background-color:#1f1f1f;
+   background-color:#0a0a0a;
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -27,7 +27,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #181818;
+  background-color: #0f1114;
   padding: 10px 20px;
   z-index: 100; /* This helps ensure the header is above other page content */
   border-bottom: #fff solid 2px;
@@ -151,7 +151,7 @@ body {
   color: #fff;
   width: 442px; 
   height: 225px;
-  background-color: #181818;
+  background-color: #0f1114;
   margin-top: 15px;
   margin-left: 15px; 
   display: inline-block;
@@ -169,7 +169,7 @@ body {
 .spacer {
   width: 500px;
   height: 20px;
-  background-color: #1f1f1f;
+  background-color: #0a0a0a;
   color: #fff;
   font-size: 22px;
   margin-top: 20px;

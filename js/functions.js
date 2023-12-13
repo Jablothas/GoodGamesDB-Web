@@ -137,6 +137,9 @@ function filterBySearch() {
 }
 
 function findPlayedGames() {
+    // disabled while developing 
+    addButton.disabled = false;
+    return;
     notify("Fechting data from Steam... this may take a while.", "warn");
     var method = "findOwnedGames";
     $.ajax({
