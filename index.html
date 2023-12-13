@@ -1,9 +1,9 @@
 <!DOCTYPE html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
-        <link rel="stylesheet" type="text/css" href="css/modal.css">
         <script src="js/components/jquery-3.7.1.js"></script>
         <script src="js/components/notify.js"></script>
         <script src="js/functions.js"></script>
@@ -34,11 +34,12 @@
           </div>          
         <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
-            <div class="modal-content">
+            <div id="modal-content" class="modal-content">
               <span class="close">&times;</span>
+              <div id="img-cover-text" class="img-cover-text">Select</div>
               <form>
                 <div class="horizontal-div">
-                    <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/demo.png"></div>
+                    <div><img id="img-cover" class="img-cover" onclick="changeCover()" src="img/covers/default.png"></div>
                     <div class="form-core">
                         <div class="header-input">
                             <div class="input-container">
@@ -66,7 +67,7 @@
                                     <br>Status
                                 </div>
                                 <div>
-                                    <select class="small-custom-select" id="status" name="status" onblur="setRecordStatus()">
+                                    <select class="small-custom-select" id="status" name="status" oninput="setRecordStatus()">
                                         <option value="Playing">Playing</option>
                                         <option value="Completed">Completed</option>
                                         <option value="Canceled">Canceled</option>
@@ -83,19 +84,19 @@
                              </datalist>
                         </div>
                         <div id="steam-appid-label">
-                            <br>Steam appid
+                            <br>AppId (Steam)
                         </div>
                         <div>
                             <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
                         </div>
                         <div>
-                            <br>Date of start
+                            <br>Start date
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="start_date" name="start_date">
                         </div>
                         <div>
-                            <br>Date of finish
+                            <br>End date
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="end_date" name="end_date">
@@ -104,7 +105,7 @@
                             <br>Playtime in hours
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0 h">
+                            <input class="basic-input" type="text" id="playtime" name="playtime" value="0">
                         </div>
                         <div>
                             <br>Note
@@ -114,45 +115,45 @@
                         </div>
                     </div>
                     <div>
-                        <div class="main-score-container">
+                        <div class="main-score-container" id="main-score-container">
                             <div class="left-slider-box">
                                 <!-- Slider Gameplay -->
                                 <div class="slider-container">
-                                    <label for="slider1">Gameplay<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <label for="gameplay">Gameplay<br>
+                                    <span style="color:grey"> Execution and engagement level of game mechanics.</span></label>
                                     <div style="display: flex; align-items: center;">
-                                        <input type="range" id="slider1" min="1" max="10" value="1" oninput="updateSlider('slider1')">
+                                        <input type="range" id="gameplay" min="1" max="10" value="1" oninput="updateSlider('gameplay')">
                                         <span class="slider-value">1</span>
-                                        <input type="checkbox" id="slider1_check" name="slider1_check" onclick="disableSlider('slider1')" checked>
+                                        <input type="checkbox" id="gameplay_check" name="gameplay_check" onclick="disableSlider('gameplay')" checked>
                                     </div>
                                 </div>
 
                                 <!-- Slider Presentation -->
                                 <div class="slider-container">
-                                    <label for="slider2">Presentation<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <label for="presentation">Presentation<br>
+                                    <span style="color:grey"> Visual and artistic aspects of the game including graphics, design, and style.</span></label>
                                     <div style="display: flex; align-items: center;">
-                                        <input type="range" id="slider2" min="1" max="10" value="1" oninput="updateSlider('slider2')">
+                                        <input type="range" id="presentation" min="1" max="10" value="1" oninput="updateSlider('presentation')">
                                         <span class="slider-value"> 1</span>
-                                        <input type="checkbox" id="slider2_check" name="slider2_check" onclick="disableSlider('slider2')" checked>
+                                        <input type="checkbox" id="presentation_check" name="presentation_check" onclick="disableSlider('presentation')" checked>
                                     </div>
                                 </div>
 
                                 <!-- Slider Narrative -->
                                 <div class="slider-container">
-                                    <label for="slider3">Narrative<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <label for="narrative">Narrative<br>
+                                    <span style="color:grey"> Quality, coherence, and immersion of the game's story and characters.</span></label>
                                     <div style="display: flex; align-items: center;">
-                                        <input type="range" id="slider3" min="1" max="10" value="1" oninput="updateSlider('slider3')">
+                                        <input type="range" id="narrative" min="1" max="10" value="1" oninput="updateSlider('narrative')">
                                         <span class="slider-value">1</span>
-                                        <input type="checkbox" id="slider3_check" name="slider3_check" onclick="disableSlider('slider3')" checked>
+                                        <input type="checkbox" id="narrative_check" name="narrative_check" onclick="disableSlider('narrative')" checked>
                                     </div>
                                 </div>
 
                                 <!-- Slider Quality -->
                                 <div class="slider-container">
                                     <label for="slider_quality">Quality<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Overall craftsmanship, attention to detail, and absence of technical issues in the game.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_quality" min="1" max="10" value="1" oninput="updateSlider('slider_quality')">
                                         <span class="slider-value">1</span>
@@ -163,7 +164,7 @@
                                 <!-- Slider Sound -->
                                 <div class="slider-container">
                                     <label for="slider_sound">Sound<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Effectiveness of audio elements such as music, voice acting, and sound effects in enhancing the game's atmosphere.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_sound" min="1" max="10" value="1" oninput="updateSlider('slider_sound')">
                                         <span class="slider-value">1</span>
@@ -176,7 +177,7 @@
                                 <!-- Slider Content -->
                                 <div class="slider-container">
                                     <label for="slider_content">Content<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Quantity and variety of game content, including levels, quests, characters, and features.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_content" min="1" max="10" value="1" oninput="updateSlider('slider_content')">
                                         <span class="slider-value">1</span>
@@ -187,7 +188,7 @@
                                 <!-- Slider Pacing -->
                                 <div class="slider-container">
                                     <label for="slider_pacing">Pacing<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Flow and rhythm of the game to determine how well it keeps players engaged without feeling rushed or bored.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_pacing" min="1" max="10" value="1" oninput="updateSlider('slider_pacing')">
                                         <span class="slider-value">1</span>
@@ -198,7 +199,7 @@
                                 <!-- Slider Balance -->
                                 <div class="slider-container">
                                     <label for="slider_balance">Balance<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Considers whether challenges are appropriately tuned to provide a satisfying experience without being overly frustrating or too easy.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_balance" min="1" max="10" value="1" oninput="updateSlider('slider_balance')">
                                         <span class="slider-value">1</span>
@@ -209,7 +210,7 @@
                                 <!-- Slider UI/UX -->
                                 <div class="slider-container">
                                     <label for="slider_ui_ux">UI/UX<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Design and functionality of the user interface and overall user experience.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_ui_ux" min="1" max="10" value="1" oninput="updateSlider('slider_ui_ux')">
                                         <span class="slider-value">1</span>
@@ -219,7 +220,7 @@
                                 <!-- Slider Impression -->
                                 <div class="slider-container">
                                     <label for="slider_impression">Impression<br>
-                                    <span style="color:grey"> bla bla</span></label>
+                                    <span style="color:grey"> Overall impact and lasting impression the game leaves on the player, considering memorability, innovation, and uniqueness of the gaming experience.</span></label>
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_impression" min="1" max="10" value="1" oninput="updateSlider('slider_impression')">
                                         <span class="slider-value">1</span>

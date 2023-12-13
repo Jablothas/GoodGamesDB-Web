@@ -1,3 +1,15 @@
+// Data for sql:
+var title;
+var location;
+var cover_img; 
+
+function cleanForm() {
+    document.getElementById('img-cover-text').innerText = 'Upload';
+    document.getElementById('img-cover').src = "img/covers/default.png";
+    document.getElementById("title").value = '';
+    document.getElementById("steam-appid").value = '';
+}
+
 function getPlaytime() {
     if(document.getElementById("steam-appid").value <= 0) return; 
     showLoader(true);
@@ -29,8 +41,47 @@ function getPlaytime() {
 }
 
 function changeCover() {
-    var image = document.getElementById("img-cover");
-    image.src = "img/covers/placeholder.png";
+    document.getElementById('img-cover-text').innerText = '';
+
+    // Create a file input element dynamically
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.id = 'file-input';
+    fileInput.accept = 'image/*';
+
+    // Set up an event listener for the change event
+    fileInput.addEventListener('change', function () {
+        uploadImage(fileInput);
+    });
+
+    // Trigger the click event on the file input
+    fileInput.click();
+}
+
+function uploadImage(input) {
+    var image = document.getElementById('img-cover');
+
+    if (input.files && input.files[0]) {
+        var formData = new FormData();
+        formData.append('image', input.files[0]);
+
+        // Make an AJAX request to upload the image
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'php/upload.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // On successful upload, update the image source
+                image.src = 'img/covers/' + xhr.responseText;
+                cover_img = xhr.responseText;
+            } else {
+                // Handle errors
+                console.error('Image upload failed');
+            }
+        };
+
+        xhr.send(formData);
+    }
 }
 
 function checkFormByGame() {
@@ -69,10 +120,22 @@ function checkIfSteam() {
 }
 
 function setRecordStatus() {
+    let score_container = document.getElementById("main-score-container");
+    let modal_container = document.getElementById("modal-content");
     let endDate = document.getElementById("end_date");
     let status = document.getElementById("status").value;
-    if(status == "Playing") { endDate.disabled = true; endDate.style.color = "grey"; }
-    if(status == "Canceled" || status == "Completed") { endDate.disabled = false; endDate.style.color = "#fff"; }
+    if(status == "Playing") { 
+        endDate.disabled = true; 
+        endDate.style.color = "grey"; 
+        score_container.style.display = 'none'; 
+        modal_container.style.width = "800px";
+    }
+    if(status == "Canceled" || status == "Completed") { 
+        endDate.disabled = false; 
+        endDate.style.color = "#fff";
+        score_container.style.display = 'flex';  
+        modal_container.style.width = "1410px";
+    }
 }
 
 function updateSlider(sliderId) {

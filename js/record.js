@@ -70,6 +70,8 @@ function renderData(record) {
 }
 
 function openRecord(record) {
+    // currently disabled until further development
+    return;
     notify(record["name"] + " wurde angeklickt.", "success");
     addButtonClick()
     document.getElementById('title').value=`${record["name"]}`

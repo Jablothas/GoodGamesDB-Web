@@ -5,6 +5,7 @@ var locationList = [];
 var playedGamesList = [];
 var filter = "std";
 var keyword = "";
+var editMode = false;
 
 function start() {
     getLocations();
@@ -60,6 +61,18 @@ function buildGrid() {
     }
 }
 
+function checkEditMode() {
+    let score_container = document.getElementById("main-score-container");
+    let modal_container = document.getElementById("modal-content");
+    if(editMode) {
+        // later
+    }
+    else {
+        score_container.style.display = "none";
+        modal_container.style.width = "800px";
+    }
+}
+
 function loopRecords() {
     for (let record of recordList) {
         contentMaster.appendChild(createPanelBody(record));
@@ -68,10 +81,10 @@ function loopRecords() {
 }
 
 function addButtonClick() {
+    cleanForm();
     let modal = document.getElementById("dialogModal");
     let span = document.getElementsByClassName("close")[0];
     modal.style.display = "inline-block";
-    inputCleanUp();
     var selectElement = document.getElementById("location");
     selectElement.innerHTML = '';
     locationList.forEach(function (location) {
@@ -84,6 +97,7 @@ function addButtonClick() {
     span.onclick = function() {
         modal.style.display = "none";
     }
+    checkEditMode();
 }
 
 function getCurrentDate() {
@@ -137,6 +151,9 @@ function filterBySearch() {
 }
 
 function findPlayedGames() {
+    // disabled while developing 
+    addButton.disabled = false;
+    return;
     notify("Fechting data from Steam... this may take a while.", "warn");
     var method = "findOwnedGames";
     $.ajax({
@@ -176,9 +193,4 @@ function addSuggestionsToList() {
 function removeDuplicates() {
     var uniqueGamesSet = new Set(playedGamesList);
     playedGamesList = Array.from(uniqueGamesSet);
-}
-
-function inputCleanUp() {
-    document.getElementById("title").value = '';
-    document.getElementById("steam-appid").value = '';
 }
