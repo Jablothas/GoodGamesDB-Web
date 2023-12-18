@@ -3,13 +3,6 @@ var title;
 var location;
 var cover_img; 
 
-function cleanForm() {
-    document.getElementById('img-cover-text').innerText = 'Upload';
-    document.getElementById('img-cover').src = "img/covers/default.png";
-    document.getElementById("title").value = '';
-    document.getElementById("steam-appid").value = '';
-}
-
 function getPlaytime() {
     if(document.getElementById("steam-appid").value <= 0) return; 
     showLoader(true);
@@ -130,7 +123,7 @@ function setRecordStatus() {
         score_container.style.display = 'none'; 
         modal_container.style.width = "800px";
     }
-    if(status == "Canceled" || status == "Completed") { 
+    if(status == "Canceled" || status == "Completed" || status == "Endless") { 
         endDate.disabled = false; 
         endDate.style.color = "#fff";
         score_container.style.display = 'flex';  
@@ -165,4 +158,25 @@ function disableSlider(sliderId) {
         // Update the span element with the slider value
         document.querySelector("#" + sliderId + " + .slider-value").innerText = 1;
     }
+}
+
+function cleanForm() {
+    document.getElementById('img-cover-text').innerText = 'Upload';
+    document.getElementById('img-cover').src = "img/covers/default.png";
+    document.getElementById('location').value = locationList[0];
+    document.getElementById("replay").value = 'No';
+    document.getElementById("status").value = 'Playing'
+    setRecordStatus();
+    document.getElementById("steam-appid").value = '';
+    document.getElementById("title").value = '';
+    document.getElementById("steam-appid").value = '';
+    document.getElementById("start_date").value = getCurrentDate();
+    document.getElementById("end_date").value = "TT.MM.YYYY";
+    document.getElementById("playtime").value = 0;
+    document.getElementById("note").value = '';
+    ratingList.forEach((element) => {
+        document.getElementById("slider_" + element).value = 1,
+        document.getElementById(element + "_value").innerHTML = "1",
+        document.getElementById("slider_" + element + "_check").checked = true
+    });
 }

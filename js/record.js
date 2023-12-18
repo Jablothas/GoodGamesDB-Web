@@ -98,7 +98,7 @@ function setDates(date1, date2, status)
     date_end_icon.style.height = "25px";
     if(date1 != null) {
         date_start_icon.src = "img/icons/date_start.png";
-        date_start.textContent = new Date(date1).toLocaleDateString("en-GB", date_options);
+        date_start.textContent = new Date(date1).toLocaleDateString("en-DE", date_options);
     }
 
     if(status == "PLAYING") {
@@ -112,7 +112,7 @@ function setDates(date1, date2, status)
     else {
         date_start_icon.src = "img/icons/date_start.png";
         date_start.textContent = "--"
-        date_end.textContent = new Date(date2).toLocaleDateString("en-GB", date_options);
+        date_end.textContent = new Date(date2).toLocaleDateString("en-DE", date_options);
     } 
     container_start.appendChild(date_start_icon);
     container_start.appendChild(date_start);
@@ -210,7 +210,7 @@ function setStatus(status) {
         case 'BREAK':
             icon.src = "img/status/break.png";
             break;
-        case 'INFINITY':
+        case 'ENDLESS':
             icon.src = "img/status/infinity.png";
             break;
         case 'CANCELED':
