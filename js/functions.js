@@ -3,6 +3,7 @@ var contentMaster = document.createElement('div');
 var recordList = [];
 var locationList = [];
 var playedGamesList = [];
+var ratingList = [];
 var filter = "std";
 var keyword = "";
 var editMode = false;
@@ -11,6 +12,7 @@ function start() {
     getLocations();
     getRecords();
     findPlayedGames();
+    fillRatingList();
 }
 // functions
 function getRecords() {
@@ -105,11 +107,8 @@ function getCurrentDate() {
     const year = today.getFullYear();
     let month = today.getMonth() + 1;
     let day = today.getDate();
-
-    // Pad the month and day with leading zeros if needed
     month = month < 10 ? `0${month}` : month;
     day = day < 10 ? `0${day}` : day;
-
     return `${year}-${month}-${day}`;
 }
 
@@ -152,8 +151,7 @@ function filterBySearch() {
 
 function findPlayedGames() {
     // disabled while developing 
-    addButton.disabled = false;
-    return;
+    addButton.disabled = true;
     notify("Fechting data from Steam... this may take a while.", "warn");
     var method = "findOwnedGames";
     $.ajax({
@@ -193,4 +191,17 @@ function addSuggestionsToList() {
 function removeDuplicates() {
     var uniqueGamesSet = new Set(playedGamesList);
     playedGamesList = Array.from(uniqueGamesSet);
+}
+
+function fillRatingList() {
+    ratingList.push("gameplay");
+    ratingList.push("presentation");
+    ratingList.push("narrative");
+    ratingList.push("quality");
+    ratingList.push("sound");
+    ratingList.push("content");
+    ratingList.push("pacing");
+    ratingList.push("balance");
+    ratingList.push("ui_ux");
+    ratingList.push("impression");
 }
