@@ -1,8 +1,3 @@
-// Data for sql:
-var title;
-var location;
-var cover_img; 
-
 function getPlaytime() {
     if(document.getElementById("steam-appid").value <= 0) return; 
     showLoader(true);
@@ -66,7 +61,7 @@ function uploadImage(input) {
             if (xhr.status === 200) {
                 // On successful upload, update the image source
                 image.src = 'img/covers/' + xhr.responseText;
-                cover_img = xhr.responseText;
+                document.getElementById("img-path").value = xhr.responseText;
             } else {
                 // Handle errors
                 console.error('Image upload failed');
@@ -169,7 +164,6 @@ function cleanForm() {
     setRecordStatus();
     document.getElementById("steam-appid").value = '';
     document.getElementById("title").value = '';
-    document.getElementById("steam-appid").value = '';
     document.getElementById("start_date").value = getCurrentDate();
     document.getElementById("end_date").value = "TT.MM.YYYY";
     document.getElementById("playtime").value = 0;
@@ -179,4 +173,108 @@ function cleanForm() {
         document.getElementById(element + "_value").innerHTML = "1",
         document.getElementById("slider_" + element + "_check").checked = true
     });
+}
+
+function saveNewEntry() {
+    let cover = document.getElementById("img-path").value;
+    let title = document.getElementById("title").value;
+    let location = document.getElementById("location").value;
+    let replay = document.getElementById("replay").value;
+    let status = document.getElementById("status").value;
+    let steamAppid = document.getElementById("steam-appid").value;
+    let date_start = document.getElementById("start_date").value;
+    let date_end = document.getElementById("end_date").value;
+    let playtime = document.getElementById("playtime").value;
+    let note = document.getElementById("note").value;
+    let gameplay = document.getElementById("gameplay_value").innerHTML
+    let presentation = document.getElementById("presentation_value").innerHTML
+    let narrative = document.getElementById("narrative_value").innerHTML
+    let quality = document.getElementById("quality_value").innerHTML
+    let sound = document.getElementById("sound_value").innerHTML
+    let content = document.getElementById("content_value").innerHTML
+    let pacing = document.getElementById("pacing_value").innerHTML
+    let balance = document.getElementById("balance_value").innerHTML
+    let ui_ux = document.getElementById("ui_ux_value").innerHTML
+    let impression = document.getElementById("impression_value").innerHTML
+    let scoreList = [];
+    scoreList.push(gameplay,
+        presentation,
+        narrative,
+        quality,
+        sound,
+        content,
+        pacing,
+        balance,
+        ui_ux,
+        impression)
+    let sum = calcScore(scoreList);
+    if(status == "Playing") date_end = "9999-01-01";
+    if(replay == "Yes") searchForEntry(title);
+    let data = {
+        cover: cover,
+        title: title,
+        location: location,
+        replay: replay,
+        status: status,
+        steamAppid: steamAppid,
+        date_start: date_start,
+        date_end: date_end,
+        playtime: playtime,
+        note: note,
+        gameplay: gameplay,
+        narrative: narrative,
+        quality: quality,
+        sound: sound,
+        content: content,
+        pacing: pacing,
+        balance: balance, 
+        ui_ux: ui_ux,
+        impression: impression,
+        sum: sum
+    };
+    sqlRequest(data);
+}
+
+function sqlRequest(data) {
+        // Convert data object to JSON
+        let jsonData = JSON.stringify(data);
+        // Create a new XMLHttpRequest object
+        let xhr = new XMLHttpRequest();
+        // Specify the type of request (POST) and the URL of your PHP backend
+        xhr.open("POST", "php/sql_write.php", true);
+        // Set the request header to indicate that the content type is JSON
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // Set the callback function to handle the response from the server
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // The response from the server (if any) is available in xhr.responseText
+                console.log(xhr.responseText);
+            }
+        };
+        // Send the JSON data to the server
+        xhr.send(jsonData);
+}
+
+function searchForEntry(title) {
+    // work in progress
+}
+
+function calcScore(scoreList) {
+    let editedScoreList = [];
+    let sum = 0;
+    console.log("before: " + scoreList);
+    scoreList.forEach(element => {
+        element = calcScoreCheck(element);
+        editedScoreList.push(element);
+    })
+    console.log("after: " + editedScoreList);
+    editedScoreList.forEach(element => {
+        sum = parseInt(sum) + parseInt(element);
+    })
+    return parseInt(sum);
+}
+
+function calcScoreCheck(value) {
+    if(value == 0) value = 10;
+    return value;
 }

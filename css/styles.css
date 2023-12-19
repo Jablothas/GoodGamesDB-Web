@@ -145,6 +145,36 @@ body {
   background: #ff0000 url('../img/buttons/logout.png') no-repeat center;
 }
 
+/*.form-button#saveButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/save.png') no-repeat center;
+  background-size: 25px 25px;
+  padding: 2px 8px;
+}
+
+.form-button#saveButton:hover {
+  background: limegreen url('../img/buttons/save.png') no-repeat center;
+  background-size: 25px 25px;
+}
+
+.form-button#cancelButton {
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/cancel.png') no-repeat center;
+  background-size: 25px 25px;
+  padding: 2px 8px;
+}
+
+.form-button#cancelButton:hover {
+  background: limegreen url('../img/buttons/cancel.png') no-repeat center;
+  background-size: 25px 25px;
+}*/
+
+.submit-div {
+  margin-left: 23px;
+}
+
 /* Panel design */
 
 .mainPanel {
