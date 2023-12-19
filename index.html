@@ -87,6 +87,9 @@
                         <div id="steam-appid-label">
                             <br>AppId (Steam)
                         </div>
+                        <div hidden>
+                            <input class="basic-input" type="text" id="img-path" name="img-path" hidden>
+                        </div>
                         <div>
                             <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
                         </div>
@@ -234,6 +237,9 @@
                     </div>
                 </div>
             </form>
+            <div class="submit-div">
+                <button class="form-button" id="saveButton" onclick="saveNewEntry()">Save</button><button class="form-button" id="cancelButton" onclick="resetEntry()">Reset</button>
+            </div>
             
             </div>    
           </div>

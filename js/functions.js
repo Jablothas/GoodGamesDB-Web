@@ -63,6 +63,11 @@ function buildGrid() {
     }
 }
 
+
+function resetEntry() {
+    cleanForm();
+}
+
 function checkEditMode() {
     let score_container = document.getElementById("main-score-container");
     let modal_container = document.getElementById("modal-content");
