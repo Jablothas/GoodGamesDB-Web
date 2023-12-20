@@ -12,7 +12,7 @@ function getPlaytime() {
             dataType: 'text', // Change dataType to 'text'
             success: function (response) {
                 var data = JSON.parse(response);
-                document.getElementById("playtime").value = data + " hours";
+                document.getElementById("playtime").value = data;
                 showLoader(false);
 
             },
@@ -133,6 +133,21 @@ function updateSlider(sliderId) {
     document.querySelector("#" + sliderId + " + .slider-value").innerText = sliderValue;
 }
 
+function disableStartDate() {
+    let field = document.getElementById("start_date");
+    if(document.getElementById("no_start_date").checked == false) {
+        field.disabled = true; 
+        field.style.color = "grey"; 
+        field.value = '';
+    }
+    else {
+        field.disabled = false; 
+        field.style.color = "#fff";
+        field.value = getCurrentDate(); 
+    }
+
+}
+
 function disableSlider(sliderId) {
     var slider = document.getElementById(sliderId);
     var checkbox = document.getElementById(sliderId + "_check");
@@ -176,6 +191,7 @@ function cleanForm() {
 }
 
 function saveNewEntry() {
+    document.getElementById("saveButton").innerHTML = "Save";
     let cover = document.getElementById("img-path").value;
     let title = document.getElementById("title").value;
     let location = document.getElementById("location").value;
@@ -232,10 +248,54 @@ function saveNewEntry() {
         impression: impression,
         sum: sum
     };
-    sqlRequest(data);
+    // Exception handling
+    if(status == "Completed" || status == "Canceled" || status == "Endless") {
+        if(document.getElementById("end_date").value == '') {
+            notify("Please set an ending date.", "warn");
+            document.getElementById("end_date").focus();
+            return;
+        }
+    }
+    if(document.getElementById("title").value == '') {
+        notify("Please name your record.", "warn");
+        document.getElementById("title").focus();
+        return;
+    }
+    if(document.getElementById("title").value == '') {
+        notify("Please name your record.", "warn");
+        document.getElementById("title").focus();
+        return;
+    }
+    if(document.getElementById("img-cover").src.includes('default.png')) {
+        notify("Please upload a cover.", "warn");
+        document.getElementById("img-cover").focus();
+        return;
+    }
+    try {
+        sqlRequest(data)
+            .then(() => {
+                notify(document.getElementById("title").value + " has been saved.", "success");
+                let modal = document.getElementById("dialogModal");
+                modal.style.display = "none";
+                editMode = false;
+                filter = "std";
+                return buildGridReload();
+            })
+            .then(() => {
+                // Additional code after buildGrid is done
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                notify("Something went terribly wrong: " + error.message, "warn");
+            });
+    } catch (error) {
+        console.error("Error in try block:", error);
+        notify("Something went terribly wrong...", "warn");
+    }
 }
 
 function sqlRequest(data) {
+    return new Promise((resolve, reject) => {
         // Convert data object to JSON
         let jsonData = JSON.stringify(data);
         // Create a new XMLHttpRequest object
@@ -246,13 +306,20 @@ function sqlRequest(data) {
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         // Set the callback function to handle the response from the server
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // The response from the server (if any) is available in xhr.responseText
-                console.log(xhr.responseText);
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    // The response from the server (if any) is available in xhr.responseText
+                    console.log(xhr.responseText);
+                    resolve(xhr.responseText); // Resolve the promise on success
+                } else {
+                    // Reject the promise on failure
+                    reject(new Error("Failed to make the request. Status: " + xhr.status));
+                }
             }
         };
         // Send the JSON data to the server
         xhr.send(jsonData);
+    });
 }
 
 function searchForEntry(title) {
@@ -277,4 +344,125 @@ function calcScore(scoreList) {
 function calcScoreCheck(value) {
     if(value == 0) value = 10;
     return value;
+}
+
+
+function updateForm(record) {
+    let score_container = document.getElementById("main-score-container");
+    let modal_container = document.getElementById("modal-content");
+
+    document.getElementById("img-cover").src = "img/covers/" + record['cover_img_path'];
+    document.getElementById("title").value = record['name'];
+    document.getElementById("location").value = locationList[record['location']-1]['name'];
+
+    // Input replay
+    let replay = record['replay'];
+    if(replay == "YES") replay = "Yes";
+    if(replay == "NO") replay = "No";
+    document.getElementById("replay").value = replay;
+
+    // Input status
+    let status = record['status'];
+    let status_field = document.getElementById("status");
+    let date_end_field = document.getElementById("end_date");
+
+    if(status == "PLAYING") { status = "Playing"; }
+    if(status == "COMPLETED") { 
+        status = "Completed"; date_end_field.disabled = false; date_end_field.style.color = "#fff"; score_container.style.display = "flex"; modal_container.style.width = "1410px"; }
+    if(status == "ENDLESS") { 
+        status = "Endless"; date_end_field.disabled = false; date_end_field.style.color = "#fff"; score_container.style.display = "flex"; modal_container.style.width = "1410px"; }
+    if(status == "CANCELED") { 
+        status = "Canceled"; date_end_field.disabled = false; date_end_field.style.color = "#fff"; score_container.style.display = "flex"; modal_container.style.width = "1410px"; }
+    status_field.value = status;
+
+    document.getElementById("steam-appid").value = record["steam_appid"];
+    document.getElementById("start_date").value = record["date_start"];
+    document.getElementById("end_date").value = record["date_end"];
+    if(status == "Playing") document.getElementById("end_date").value = '';
+
+    document.getElementById("playtime").value = record['playtime'];
+    document.getElementById("note").value = record['note'];
+
+    // Gameplay score
+    document.getElementById("slider_gameplay").value = record['gameplay'];
+    document.getElementById("gameplay_value").innerHTML = record['gameplay'];
+    if (record['gameplay'] === 0) { 
+        document.getElementById("slider_gameplay_check").checked = false; 
+        document.getElementById("gameplay_value").innerHTML = 0; 
+    }
+
+    // Presentation score
+    document.getElementById("slider_presentation").value = record['presentation'];
+    document.getElementById("presentation_value").innerHTML = record['presentation'];
+    if (record['presentation'] === 0) { 
+        document.getElementById("slider_presentation_check").checked = false; 
+        document.getElementById("presentation_value").innerHTML = 0; 
+    }
+
+    // Narrative score
+    document.getElementById("slider_narrative").value = record['narrative'];
+    document.getElementById("narrative_value").innerHTML = record['narrative'];
+    if (record['narrative'] === 0) { 
+        document.getElementById("slider_narrative_check").checked = false; 
+        document.getElementById("narrative_value").innerHTML = 0; 
+    }
+
+    // Quality score
+    document.getElementById("slider_quality").value = record['quality'];
+    document.getElementById("quality_value").innerHTML = record['quality'];
+    if (record['quality'] === 0) { 
+        document.getElementById("slider_quality_check").checked = false; 
+        document.getElementById("quality_value").innerHTML = 0; 
+    }
+
+    // Sound score
+    document.getElementById("slider_sound").value = record['sound'];
+    document.getElementById("sound_value").innerHTML = record['sound'];
+    if (record['sound'] === 0) { 
+        document.getElementById("slider_sound_check").checked = false; 
+        document.getElementById("sound_value").innerHTML = 0; 
+    }
+
+    // Content score
+    document.getElementById("slider_content").value = record['content'];
+    document.getElementById("content_value").innerHTML = record['content'];
+    if (record['content'] === 0) { 
+        document.getElementById("slider_content_check").checked = false; 
+        document.getElementById("content_value").innerHTML = 0; 
+    }
+
+    // Pacing score
+    document.getElementById("slider_pacing").value = record['pacing'];
+    document.getElementById("pacing_value").innerHTML = record['pacing'];
+    if (record['pacing'] === 0) { 
+        document.getElementById("slider_pacing_check").checked = false; 
+        document.getElementById("pacing_value").innerHTML = 0; 
+    }
+
+    // Balance score
+    document.getElementById("slider_balance").value = record['balance'];
+    document.getElementById("balance_value").innerHTML = record['balance'];
+    if (record['balance'] === 0) { 
+        document.getElementById("slider_balance_check").checked = false; 
+        document.getElementById("balance_value").innerHTML = 0; 
+    }
+
+    // UI/UX score
+    document.getElementById("slider_ui_ux").value = record['ui_ux'];
+    document.getElementById("ui_ux_value").innerHTML = record['ui_ux'];
+    if (record['ui_ux'] === 0) { 
+        document.getElementById("slider_ui_ux_check").checked = false; 
+        document.getElementById("ui_ux_value").innerHTML = 0; 
+    }
+
+    // Impression score
+    document.getElementById("slider_impression").value = record['impression'];
+    document.getElementById("impression_value").innerHTML = record['impression'];
+    if (record['impression'] === 0) { 
+        document.getElementById("slider_impression_check").checked = false; 
+        document.getElementById("impression_value").innerHTML = 0; 
+    }
+    document.getElementById("saveButton").innerHTML = "Update";
+
+
 }

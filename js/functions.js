@@ -1,5 +1,6 @@
 // globals
 var contentMaster = document.createElement('div');
+contentMaster.id = "content-master";
 var recordList = [];
 var locationList = [];
 var playedGamesList = [];
@@ -42,6 +43,31 @@ function getLocations() {
     });
 }
 
+function buildGridReload() {
+    return new Promise((resolve) => {
+        switch (filter) {
+            case 'std':
+                contentMaster.innerHTML = '';
+                for (let record of recordList) {
+                    contentMaster.appendChild(createPanelBody(record));
+                }
+                // No need to append contentMaster to document.body here
+                resolve();
+                break;
+            case 'filterByInput':
+                contentMaster.innerHTML = '';
+                for (let record of recordList) {
+                    if (record["name"].toString().includes(keyword)) contentMaster.appendChild(createPanelBody(record));
+                }
+                // No need to append contentMaster to document.body here
+                resolve();
+                break;
+            default:
+                resolve();
+                break;
+        }
+    });
+}
 function buildGrid() {
     switch(filter) {
         case 'std':
@@ -68,17 +94,6 @@ function resetEntry() {
     cleanForm();
 }
 
-function checkEditMode() {
-    let score_container = document.getElementById("main-score-container");
-    let modal_container = document.getElementById("modal-content");
-    if(editMode) {
-        // later
-    }
-    else {
-        score_container.style.display = "none";
-        modal_container.style.width = "800px";
-    }
-}
 
 function loopRecords() {
     for (let record of recordList) {
@@ -87,25 +102,41 @@ function loopRecords() {
     document.body.appendChild(contentMaster);    
 }
 
-function addButtonClick() {
+function addButtonClick(record) {
     cleanForm();
+    document.getElementById("saveButton").innerHTML = "Save";
     let modal = document.getElementById("dialogModal");
+    let modalContent = document.getElementById("modal-content");
+    let editModeInfo = document.getElementById("edit-mode");
     let span = document.getElementsByClassName("close")[0];
-    modal.style.display = "inline-block";
     var selectElement = document.getElementById("location");
     selectElement.innerHTML = '';
     locationList.forEach(function (location) {
-      var option = document.createElement("option");
-      option.text = location.name;
-      selectElement.appendChild(option);
+    var option = document.createElement("option");
+    option.text = location.name;
+    selectElement.appendChild(option);
     });
-    document.getElementById('start_date').value = getCurrentDate();
-    document.getElementById("location").focus();
+    if(editMode == false) {
+        editModeInfo.style.display = "none";
+        modal.style.display = "inline-block";
+        modalContent.style.border = "1px solid #fff";
+        document.getElementById('start_date').value = getCurrentDate();
+        document.getElementById("location").focus();
+    }
+    else {
+        document.getElementById('img-cover-text').innerText = '';
+        modal.style.display = "inline-block";
+        modalContent.style.border = "1px solid limegreen";
+        editModeInfo.style.display = "inline-block";
+        updateForm(record);
+
+    }
     span.onclick = function() {
         modal.style.display = "none";
+        editMode = false;
     }
-    checkEditMode();
 }
+
 
 function getCurrentDate() {
     const today = new Date();

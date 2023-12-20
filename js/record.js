@@ -1,7 +1,9 @@
 var isReplay = false;
 var currentYear;
+var afterReload = false;
 
 function createPanelBody(record) {
+    if(afterReload) { currentYear = null; afterReload = false }
     // Yearly spacer
     let year = new Date(record["date_end"]).getFullYear();
     if(currentYear == null) {
@@ -75,8 +77,8 @@ function renderData(record) {
 
 function openRecord(record) {
     notify(record["name"] + " wurde angeklickt.", "success");
-    addButtonClick()
-    document.getElementById('title').value=`${record["name"]}`
+    editMode = true;
+    addButtonClick(record);
 }
 
 function setDates(date1, date2, status)
@@ -99,7 +101,11 @@ function setDates(date1, date2, status)
     date_end_icon.style.width = "25px";
     date_end_icon.style.height = "25px";
     date_start_icon.src = "img/icons/date_start.png";
-    date_start.textContent = new Date(date1).toLocaleDateString("en-DE", date_options);
+    if(date1 != '') {
+        date_start.textContent = new Date(date1).toLocaleDateString("en-DE", date_options);
+    } else {
+        date_start.textContent = "--";
+    }
 
 
     if(status == "PLAYING") {
