@@ -24,12 +24,10 @@ function get_records($db) {
         location, 
         date_start, 
         date_end,
-        playtime_start,
-        playtime_end,
+        playtime,
         steam_appid,
         score,
         cover_img_path,
-        dlc,
         note,
         records.status,
         replay,
@@ -50,8 +48,6 @@ function get_records($db) {
     FROM records
     INNER JOIN score
     ON records.score = score_id
-    INNER JOIN dlc
-    ON records.dlc = dlc_id
     INNER JOIN locations
     ON records.location = locations.location_id
     ORDER BY date_end DESC

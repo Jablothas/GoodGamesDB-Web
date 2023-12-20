@@ -6,6 +6,11 @@ function createPanelBody(record) {
     let year = new Date(record["date_end"]).getFullYear();
     if(currentYear == null) {
         currentYear = year;
+        if(year == 9999) {
+            year = new Date();
+            year = year.getFullYear();
+            currentYear = year;
+        }
         createSpacer(currentYear, true)
     }
     if(currentYear != year) {
@@ -63,15 +68,12 @@ function renderData(record) {
     container.appendChild(header);
     container.appendChild(createScoreDisplay(record["sum_total"]));
     // Start date
-    // TODO: NEXT STEP!!!!!!!!!!!!!!!
     container.appendChild(setDates(record["date_start"], record["date_end"], record["status"]));
     if(record["note"] != "") container.appendChild(setNote(record["note"]));
     return container;
 }
 
 function openRecord(record) {
-    // currently disabled until further development
-    return;
     notify(record["name"] + " wurde angeklickt.", "success");
     addButtonClick()
     document.getElementById('title').value=`${record["name"]}`
@@ -96,10 +98,9 @@ function setDates(date1, date2, status)
     date_end_icon.src = "img/icons/date_end2.png";
     date_end_icon.style.width = "25px";
     date_end_icon.style.height = "25px";
-    if(date1 != null) {
-        date_start_icon.src = "img/icons/date_start.png";
-        date_start.textContent = new Date(date1).toLocaleDateString("en-DE", date_options);
-    }
+    date_start_icon.src = "img/icons/date_start.png";
+    date_start.textContent = new Date(date1).toLocaleDateString("en-DE", date_options);
+
 
     if(status == "PLAYING") {
         date_end.style.color = "#ffa404";
@@ -111,7 +112,7 @@ function setDates(date1, date2, status)
     }
     else {
         date_start_icon.src = "img/icons/date_start.png";
-        date_start.textContent = "--"
+        //date_start.textContent = "--"
         date_end.textContent = new Date(date2).toLocaleDateString("en-DE", date_options);
     } 
     container_start.appendChild(date_start_icon);
@@ -160,6 +161,10 @@ function createScoreDisplay(sum) {
     else if(sum >= 70) score.style.backgroundColor = "#FFBE5B"
     else if(sum >= 61) score.style.backgroundColor = "#C77700"
     else score.style.backgroundColor = "#C70000"
+    if(sum == 0) {
+        score.style.backgroundColor = "grey";
+        score.textContent = "-";
+    }
     // medal element
     if(sum >= 85) scoreContainer.appendChild(setMedal(sum));
     if(isReplay) {
