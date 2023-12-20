@@ -261,6 +261,14 @@ input[type='checkbox'] {
   accent-color: #fff;
 }
 
+.start-date-check {
+  margin-left: 20px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
 /* RANGE SLIDER */
 
 input[type=range] {

@@ -33,6 +33,10 @@ body {
   border-bottom: #fff solid 2px;
 }
 
+.edit-mode {
+  color: limegreen;
+}
+
 #loader-wrapper {
   position: fixed;
   top: 50%;

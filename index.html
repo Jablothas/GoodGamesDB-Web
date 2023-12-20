@@ -35,6 +35,7 @@
         <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
             <div id="modal-content" class="modal-content">
+                <div id="edit-mode" class="edit-mode">Edit-Mode enabled</div>
               <span class="close">&times;</span>
               <div id="img-cover-text" class="img-cover-text">Select</div>
               <form>
@@ -93,8 +94,9 @@
                         <div>
                             <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
                         </div>
-                        <div>
+                        <div class="start_date_check">
                             <br>Start date
+                            <input type="checkbox" id="no_start_date" name="no_start_date" onclick="disableStartDate()" checked>
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="start_date" name="start_date">
