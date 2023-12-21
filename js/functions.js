@@ -10,10 +10,12 @@ var keyword = "";
 var editMode = false;
 
 function start() {
+    addButton.disabled = false;
+    playedGamesList = JSON.parse(localStorage.getItem('playedGamesList')) || [];
     getLocations();
     getRecords();
-    findPlayedGames();
     fillRatingList();
+    findPlayedGames();
 }
 // functions
 function getRecords() {
@@ -43,31 +45,7 @@ function getLocations() {
     });
 }
 
-function buildGridReload() {
-    return new Promise((resolve) => {
-        switch (filter) {
-            case 'std':
-                contentMaster.innerHTML = '';
-                for (let record of recordList) {
-                    contentMaster.appendChild(createPanelBody(record));
-                }
-                // No need to append contentMaster to document.body here
-                resolve();
-                break;
-            case 'filterByInput':
-                contentMaster.innerHTML = '';
-                for (let record of recordList) {
-                    if (record["name"].toString().includes(keyword)) contentMaster.appendChild(createPanelBody(record));
-                }
-                // No need to append contentMaster to document.body here
-                resolve();
-                break;
-            default:
-                resolve();
-                break;
-        }
-    });
-}
+
 function buildGrid() {
     switch(filter) {
         case 'std':
@@ -186,6 +164,10 @@ function filterBySearch() {
 }
 
 function findPlayedGames() {
+    if(playedGamesList.length > 0) {
+        addSuggestionsToList();
+        return;
+    }
     // disabled while developing 
     addButton.disabled = true;
     notify("Fechting data from Steam... this may take a while.", "warn");
@@ -204,6 +186,7 @@ function findPlayedGames() {
             addSuggestionsToList();
             const addButton = document.getElementById("addButton");
             addButton.disabled = false;
+            localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
             notify("Data fetched from Steam.", "success");
 
         },
