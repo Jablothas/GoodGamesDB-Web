@@ -273,21 +273,22 @@ function saveNewEntry() {
     }
     try {
         sqlRequest(data)
-            .then(() => {
-                notify(document.getElementById("title").value + " has been saved.", "success");
-                let modal = document.getElementById("dialogModal");
-                modal.style.display = "none";
-                editMode = false;
-                filter = "std";
-                return buildGridReload();
-            })
-            .then(() => {
-                // Additional code after buildGrid is done
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                notify("Something went terribly wrong: " + error.message, "warn");
-            });
+        .then(() => {
+            notify(document.getElementById("title").value + " has been saved.", "success");
+            let modal = document.getElementById("dialogModal");
+            modal.style.display = "none";
+            editMode = false;
+            filter = "std";
+            localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
+        })
+        .then(() => {
+            // Reload the page only after updating playedGamesList
+            window.location.href = window.location.href;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            notify("Something went terribly wrong: " + error.message, "warn");
+        });
     } catch (error) {
         console.error("Error in try block:", error);
         notify("Something went terribly wrong...", "warn");
