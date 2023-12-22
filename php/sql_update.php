@@ -23,6 +23,7 @@ function updateData($db, $data) {
     $playtime = $data['playtime'];
     $note = $data['note'];
     $gameplay = $data['gameplay'];
+    $presentation = $data['presentation'];
     $narrative = $data['narrative'];
     $quality = $data['quality'];
     $sound = $data['sound'];
@@ -60,7 +61,7 @@ function updateData($db, $data) {
     // Bind parameters for score table
     $updateScoreSQL->bindParam(':score_name', $title);
     $updateScoreSQL->bindParam(':gameplay', $gameplay);
-    $updateScoreSQL->bindParam(':presentation', $narrative);
+    $updateScoreSQL->bindParam(':presentation', $presentation);
     $updateScoreSQL->bindParam(':narrative', $narrative);
     $updateScoreSQL->bindParam(':quality', $quality);
     $updateScoreSQL->bindParam(':sound', $sound);

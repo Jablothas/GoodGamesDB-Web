@@ -244,6 +244,7 @@ function saveNewEntry() {
         playtime: playtime,
         note: note,
         gameplay: gameplay,
+        presentation: presentation,
         narrative: narrative,
         quality: quality,
         sound: sound,

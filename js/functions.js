@@ -9,7 +9,25 @@ var filter = "std";
 var keyword = "";
 var editMode = false;
 
+function checkSession() {
+    $.ajax({
+        type: 'POST',
+        url: 'php/check_session.php', 
+        success: function(response) {
+            if (response !== 'valid') {
+                window.location.href = 'index.php'; 
+            }
+        }
+    });
+}
+
+function redirectToLogin() {
+    window.location.href = 'index.php';
+}
+
+
 function start() {
+    checkSession();
     checkLocalStorage();
     addButton.disabled = false;
     playedGamesList = JSON.parse(localStorage.getItem('playedGamesList')) || [];
@@ -18,7 +36,17 @@ function start() {
     fillRatingList();
     findPlayedGames();
 }
-// functions
+
+function logoutButton() {
+    $.ajax({
+        type: 'POST',
+        url: 'php/logout.php',
+        success: function(response) {
+            window.location.href = 'index.php';
+        }
+    });
+}
+
 function getRecords() {
     fetch('php/sql_connect.php?method=get_records')
       .then(response => response.json())
@@ -48,6 +76,7 @@ function getLocations() {
 
 
 function buildGrid() {
+    checkSession();
     switch(filter) {
         case 'std':
             contentMaster.innerHTML = '';
@@ -82,6 +111,7 @@ function loopRecords() {
 }
 
 function addButtonClick(record) {
+    checkSession();
     if(editMode === false) cleanForm();
     document.getElementById("saveButton").innerHTML = "Save";
     let modal = document.getElementById("dialogModal");
@@ -250,6 +280,7 @@ function setLastUpdate() {
 }
 
 function checkLocalStorage() {
+    checkSession();
     const storedDateStr = localStorage.getItem('lastUpdate');
     const updateMsg = localStorage.getItem('updateMsg');
     if (updateMsg != null) notify(updateMsg, "success"); 
