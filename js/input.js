@@ -171,6 +171,8 @@ function disableSlider(sliderId) {
 }
 
 function cleanForm() {
+    document.getElementById("cancelButton").style.visibility = 'visible';
+    document.getElementById("cancelButton").style.backgroundColor = '#fff';
     document.getElementById('img-cover-text').innerText = 'Upload';
     document.getElementById('img-cover').src = "img/covers/default.png";
     document.getElementById('location').value = locationList[0];
@@ -192,6 +194,8 @@ function cleanForm() {
 
 function saveNewEntry() {
     document.getElementById("saveButton").innerHTML = "Save";
+    let record_id = document.getElementById("record-id").value;
+    let score_id = document.getElementById("score-id").value;
     let cover = document.getElementById("img-path").value;
     let title = document.getElementById("title").value;
     let location = document.getElementById("location").value;
@@ -227,6 +231,8 @@ function saveNewEntry() {
     if(status == "Playing") date_end = "9999-01-01";
     if(replay == "Yes") searchForEntry(title);
     let data = {
+        record_id: record_id,
+        score_id: score_id,
         cover: cover,
         title: title,
         location: location,
@@ -238,6 +244,7 @@ function saveNewEntry() {
         playtime: playtime,
         note: note,
         gameplay: gameplay,
+        presentation: presentation,
         narrative: narrative,
         quality: quality,
         sound: sound,
@@ -271,15 +278,19 @@ function saveNewEntry() {
         document.getElementById("img-cover").focus();
         return;
     }
+    // finally pass to backend
     try {
         sqlRequest(data)
         .then(() => {
-            notify(document.getElementById("title").value + " has been saved.", "success");
             let modal = document.getElementById("dialogModal");
             modal.style.display = "none";
-            editMode = false;
             filter = "std";
+            let updateMsg;
+            if(editMode === false) updateMsg = data["title"] +  'saved to database.';
+            if(editMode === true)  updateMsg = data["title"] + ' has been updated.';
+            editMode = false;
             localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
+            localStorage.setItem('updateMsg', JSON.stringify(updateMsg));
         })
         .then(() => {
             // Reload the page only after updating playedGamesList
@@ -288,7 +299,7 @@ function saveNewEntry() {
         .catch(error => {
             console.error("Error:", error);
             notify("Something went terribly wrong: " + error.message, "warn");
-        });
+        }); 
     } catch (error) {
         console.error("Error in try block:", error);
         notify("Something went terribly wrong...", "warn");
@@ -302,7 +313,8 @@ function sqlRequest(data) {
         // Create a new XMLHttpRequest object
         let xhr = new XMLHttpRequest();
         // Specify the type of request (POST) and the URL of your PHP backend
-        xhr.open("POST", "php/sql_write.php", true);
+        if(editMode === false) xhr.open("POST", "php/sql_write.php", true);
+        if(editMode === true) xhr.open("POST", "php/sql_update.php", true);
         // Set the request header to indicate that the content type is JSON
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         // Set the callback function to handle the response from the server
@@ -355,6 +367,8 @@ function updateForm(record) {
     document.getElementById("img-cover").src = "img/covers/" + record['cover_img_path'];
     document.getElementById("title").value = record['name'];
     document.getElementById("location").value = locationList[record['location']-1]['name'];
+    document.getElementById("record-id").value = record["record_id"];
+    document.getElementById("score-id").value = record["score_id"];
 
     // Input replay
     let replay = record['replay'];
@@ -463,7 +477,18 @@ function updateForm(record) {
         document.getElementById("slider_impression_check").checked = false; 
         document.getElementById("impression_value").innerHTML = 0; 
     }
-    document.getElementById("saveButton").innerHTML = "Update";
+    if(record["date_start"] == ''  || record["date_start" === null]) {
+        let field_date = document.getElementById("start_date");
+        let field_checkmark = document.getElementById("no_start_date");
+        field_date.checked = false;
+        field_date.disabled = true; 
+        field_date.style.color = "grey"; 
+        field_date.value = '';
+        field_checkmark.checked = false;
 
 
+    }
+    document.getElementById("img-path").value = record['cover_img_path'];
+    document.getElementById("saveButton").innerHTML = "Save changes";
+    document.getElementById("cancelButton").style.visibility = 'hidden';
 }

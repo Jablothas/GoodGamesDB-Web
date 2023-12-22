@@ -6,6 +6,8 @@ insert_new($db, $data);
 
 function insert_new($db, $data) {
     // Extract data from the input array
+    $record_id = $data["record_id"];
+    $score_id = $data["score_id"];
     $cover = $data['cover'];
     $title = $data['title'];
     $locationName = $data['location'];  // Assuming you have location name in the data
@@ -22,6 +24,7 @@ function insert_new($db, $data) {
     $playtime = $data['playtime'];
     $note = $data['note'];
     $gameplay = $data['gameplay'];
+    $presentation = $data['presentation'];
     $narrative = $data['narrative'];
     $quality = $data['quality'];
     $sound = $data['sound'];
@@ -74,7 +77,7 @@ function insert_new($db, $data) {
     // Bind parameters for score table
     $insertScoreSQL->bindParam(':score_name', $title);
     $insertScoreSQL->bindParam(':gameplay', $gameplay);
-    $insertScoreSQL->bindParam(':presentation', $narrative);
+    $insertScoreSQL->bindParam(':presentation', $presentation);
     $insertScoreSQL->bindParam(':narrative', $narrative);
     $insertScoreSQL->bindParam(':quality', $quality);
     $insertScoreSQL->bindParam(':sound', $sound);

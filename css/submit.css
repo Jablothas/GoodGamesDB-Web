@@ -1,0 +1,36 @@
+* {
+    font-family: Verdana;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #0c0c0c;
+    color: #FFFFFF;
+    align-items: center;
+    text-align: center;
+}
+
+input[type=password] {
+    width: 350px;
+    /*padding: 15px; */
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #0c0c0c;
+    border: 1px solid #fff;
+}
+
+input[type=password]:focus {
+    background-color: #0c0c0c;
+    border-color: fff;
+    outline: none;
+}
+
+button {
+    background-color: #fff;
+    color: #000;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 350px;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
