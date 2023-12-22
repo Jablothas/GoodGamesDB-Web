@@ -6,6 +6,8 @@ insert_new($db, $data);
 
 function insert_new($db, $data) {
     // Extract data from the input array
+    $record_id = $data["record_id"];
+    $score_id = $data["score_id"];
     $cover = $data['cover'];
     $title = $data['title'];
     $locationName = $data['location'];  // Assuming you have location name in the data

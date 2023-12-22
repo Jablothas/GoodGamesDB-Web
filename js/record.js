@@ -42,7 +42,6 @@ function createPanelBody(record) {
     leftPanel.appendChild(addImage(record["cover_img_path"]));
     rightPanel.appendChild(renderData(record));
     let url = `url('${setRecordBackground(record["location_name"])}')`;
-    console.log(url);
     mainPanel.style.backgroundImage = url;
     mainPanel.addEventListener("click", (event) => {
         openRecord(record);
@@ -76,7 +75,6 @@ function renderData(record) {
 }
 
 function openRecord(record) {
-    notify(record["name"] + " wurde angeklickt.", "success");
     editMode = true;
     addButtonClick(record);
 }

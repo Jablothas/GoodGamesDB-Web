@@ -1,4 +1,4 @@
-// globals
+// globalsave
 var contentMaster = document.createElement('div');
 contentMaster.id = "content-master";
 var recordList = [];
@@ -10,6 +10,7 @@ var keyword = "";
 var editMode = false;
 
 function start() {
+    checkLocalStorage();
     addButton.disabled = false;
     playedGamesList = JSON.parse(localStorage.getItem('playedGamesList')) || [];
     getLocations();
@@ -81,7 +82,7 @@ function loopRecords() {
 }
 
 function addButtonClick(record) {
-    cleanForm();
+    if(editMode === false) cleanForm();
     document.getElementById("saveButton").innerHTML = "Save";
     let modal = document.getElementById("dialogModal");
     let modalContent = document.getElementById("modal-content");
@@ -124,6 +125,23 @@ function getCurrentDate() {
     month = month < 10 ? `0${month}` : month;
     day = day < 10 ? `0${day}` : day;
     return `${year}-${month}-${day}`;
+}
+
+function getCurrentDateLong() {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let seconds = today.getSeconds();
+
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+    hours = hours < 10 ? `0${hours}` : hours;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function logoutButtonClick() {
@@ -187,6 +205,7 @@ function findPlayedGames() {
             const addButton = document.getElementById("addButton");
             addButton.disabled = false;
             localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
+            setLastUpdate();
             notify("Data fetched from Steam.", "success");
 
         },
@@ -223,4 +242,30 @@ function fillRatingList() {
     ratingList.push("balance");
     ratingList.push("ui_ux");
     ratingList.push("impression");
+}
+
+function setLastUpdate() {
+    const currentDate = getCurrentDateLong();
+    localStorage.setItem('lastUpdate', JSON.stringify(currentDate));
+}
+
+function checkLocalStorage() {
+    const storedDateStr = localStorage.getItem('lastUpdate');
+    const updateMsg = localStorage.getItem('updateMsg');
+    if (updateMsg != null) notify(updateMsg, "success"); 
+    localStorage.removeItem('updateMsg');
+    if (storedDateStr) {
+        const storedDate = new Date(JSON.parse(storedDateStr));
+        const timeDifference = new Date() - storedDate;
+        if (timeDifference > 3600000) {
+            cleanLocalStorage();
+        }
+    }
+    if(storedDateStr === null || storedDateStr == '') cleanLocalStorage();
+}
+
+function cleanLocalStorage() {
+    localStorage.removeItem('lastUpdate');
+    localStorage.removeItem('playedGamesList');
+    notify("Local data is outdated and has been deleted.")
 }
