@@ -180,7 +180,7 @@ function logoutButtonClick() {
 
 
 function notify(msg, type) {
-    $.notify("" + msg,  type, 
+    $.notify(msg,  type, 
         { position:"right bottom" }
       );
 }
@@ -283,7 +283,10 @@ function checkLocalStorage() {
     checkSession();
     const storedDateStr = localStorage.getItem('lastUpdate');
     const updateMsg = localStorage.getItem('updateMsg');
-    if (updateMsg != null) notify(updateMsg, "success"); 
+    if (updateMsg != null) {
+        var updatedMsg = updateMsg.replace(/"/g, '');
+        notify(updatedMsg, "success"); 
+    }
     localStorage.removeItem('updateMsg');
     if (storedDateStr) {
         const storedDate = new Date(JSON.parse(storedDateStr));
