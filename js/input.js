@@ -3,7 +3,6 @@ function getPlaytime() {
     showLoader(true);
     let appid = document.getElementById("steam-appid").value;
     if(appid.length > 1) {
-        notify("Searching for playtime in " + appid, "warn");
         var method = "findPlaytime";
         $.ajax({
             url: 'php/steam_api.php',
@@ -286,8 +285,8 @@ function saveNewEntry() {
             modal.style.display = "none";
             filter = "std";
             let updateMsg;
-            if(editMode === false) updateMsg = data["title"] +  'saved to database.';
-            if(editMode === true)  updateMsg = data["title"] + ' has been updated.';
+            if(editMode === false) updateMsg = data["title"] +  'saved to database';
+            if(editMode === true)  updateMsg = data["title"] + ' has been updated';
             editMode = false;
             localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
             localStorage.setItem('updateMsg', JSON.stringify(updateMsg));
