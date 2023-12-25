@@ -26,9 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div>
         <br><br><img src="img/logo-big.png" style="vertical-align:middle;margin:0px 20px"><br><br><font color="white"><b>GoodGamesDB Web</b></font>
     </div>
-    <div>
-        <br>
-        Restricted Area<br><br><br><br>
+    <div><br>
         <form method="post" action="index.php">
             <input type="password" id="password" name="password"><br>
             <button type="submit" class="btn">Let's go</button>

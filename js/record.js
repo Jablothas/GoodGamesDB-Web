@@ -3,18 +3,14 @@ var currentYear;
 var afterReload = false;
 
 function createPanelBody(record) {
-    if(afterReload) { currentYear = null; afterReload = false }
+    //if(afterReload) { currentYear = null; afterReload = false }
     // Yearly spacer
     let year = new Date(record["date_end"]).getFullYear();
     if(currentYear == null) {
         currentYear = year;
-        if(year == 9999) {
-            year = new Date();
-            year = year.getFullYear();
-            currentYear = year;
-        }
         createSpacer(currentYear, true)
     }
+    
     if(currentYear != year) {
         currentYear = year;
         createSpacer(currentYear, false)
@@ -245,6 +241,7 @@ function createSpacer(year, firstSpacer) {
     var spacer = document.createElement('div');
     spacer.className = "spacer";
     spacer.textContent = year;
+    if(year === 9999) spacer.textContent = "Currently Playing";
     if(firstSpacer) spacer.style.marginTop = "110px";
     contentMaster.appendChild(spacer);
 }
