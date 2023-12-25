@@ -10,6 +10,7 @@ function insert_new($db, $data) {
     $score_id = $data["score_id"];
     $cover = $data['cover'];
     $title = $data['title'];
+    // $title = str_replace("'", "´", $title); !!! MAYBE NEEDED SOMEDAY CAUSE OF SQL ERROR
     $locationName = $data['location'];  // Assuming you have location name in the data
     $replay = strtoupper($data['replay']);
     $status = strtoupper($data['status']);

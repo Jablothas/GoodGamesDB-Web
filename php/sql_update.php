@@ -10,7 +10,8 @@ function updateData($db, $data) {
     $score_id = $data["score_id"];
     $cover = $data['cover'];
     $title = $data['title'];
-    $locationName = $data['location'];  // Assuming you have location name in the data
+    // $title = str_replace("'", "´", $title); !!! MAYBE NEEDED SOMEDAY CAUSE OF SQL ERROR
+    $locationName = $data['location'];  
     $replay = strtoupper($data['replay']);
     $status = strtoupper($data['status']);
     $steamAppid = $data['steamAppid'];
