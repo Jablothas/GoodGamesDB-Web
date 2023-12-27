@@ -74,7 +74,7 @@ validateSession();
                                     <br>Status
                                 </div>
                                 <div>
-                                    <select class="small-custom-select" id="status" name="status" oninput="setRecordStatus()">
+                                    <select class="small-custom-select" id="status" name="status" oninput="setRecordStatus(), checkIfRecordAlreadyExist()">
                                         <option value="Playing">Playing</option>
                                         <option value="Completed">Completed</option>
                                         <option value="Endless">Endless</option>
@@ -189,6 +189,10 @@ validateSession();
                                         <input type="checkbox" id="slider_sound_check" name="slider_sound_check" onclick="disableSlider('slider_sound')" checked>
                                     </div>
                                 </div>
+                                <!--
+                                POTENTIAL PLACE FOR TOTAL_SUM    
+                                <div class="form-score-sum" id="form-score-sum">0</div>
+                                -->
                             </div>
                             <div class="right-slider-box">
 
