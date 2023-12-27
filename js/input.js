@@ -296,7 +296,7 @@ function saveNewEntry() {
             modal.style.display = "none";
             filter = "std";
             let updateMsg;
-            if(editMode === false) updateMsg = data["title"] +  'saved to database';
+            if(editMode === false) updateMsg = data["title"] +  ' saved to database';
             if(editMode === true)  updateMsg = data["title"] + ' has been updated';
             editMode = false;
             localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
