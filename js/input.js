@@ -78,11 +78,22 @@ function checkFormByGame() {
             if(game.split('=')[0] == document.getElementById("title").value) {
                 let appid = document.getElementById("steam-appid");
                 document.getElementById("steam-appid").value = game.split('=')[1];
-                datalist.appendChild(option);
+                //datalist.appendChild(option);
             }
         });
     }
-    // Other blocks
+}
+
+function checkIfRecordAlreadyExist() {
+    for (let i = 0; i < recordList.length; i++) {
+        if(recordList[i]["name"] == document.getElementById("title").value 
+        && document.getElementById("status").value != "Playing"
+        && recordList[i]["sum_total"] > 0) {
+            updateForm(recordList[i]);
+            notify("Previous record for this game found: Scores imported.", "success");
+            break;
+        }
+    }
 }
 
 function checkIfSteam() {

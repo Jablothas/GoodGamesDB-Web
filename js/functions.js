@@ -112,7 +112,8 @@ function loopRecords() {
 
 function addButtonClick(record) {
     checkSession();
-    if(editMode === false) cleanForm();
+    cleanForm();
+    setRecordStatus();
     document.getElementById("saveButton").innerHTML = "Save";
     let modal = document.getElementById("dialogModal");
     let modalContent = document.getElementById("modal-content");
