@@ -89,7 +89,7 @@ function checkIfRecordAlreadyExist() {
         if(recordList[i]["name"] == document.getElementById("title").value 
         && document.getElementById("status").value != "Playing"
         && recordList[i]["sum_total"] > 0) {
-            updateForm(recordList[i]);
+            getPreviousScores(recordList[i]);
             notify("Previous record for this game found: Scores imported.", "success");
             break;
         }
@@ -501,4 +501,86 @@ function updateForm(record) {
     document.getElementById("img-path").value = record['cover_img_path'];
     document.getElementById("saveButton").innerHTML = "Save changes";
     document.getElementById("cancelButton").style.visibility = 'hidden';
+}
+
+function getPreviousScores(record) {
+    // Gameplay score
+    document.getElementById("slider_gameplay").value = record['gameplay'];
+    document.getElementById("gameplay_value").innerHTML = record['gameplay'];
+    if (record['gameplay'] === 0) { 
+        document.getElementById("slider_gameplay_check").checked = false; 
+        document.getElementById("gameplay_value").innerHTML = 0; 
+    }
+
+    // Presentation score
+    document.getElementById("slider_presentation").value = record['presentation'];
+    document.getElementById("presentation_value").innerHTML = record['presentation'];
+    if (record['presentation'] === 0) { 
+        document.getElementById("slider_presentation_check").checked = false; 
+        document.getElementById("presentation_value").innerHTML = 0; 
+    }
+
+    // Narrative score
+    document.getElementById("slider_narrative").value = record['narrative'];
+    document.getElementById("narrative_value").innerHTML = record['narrative'];
+    if (record['narrative'] === 0) { 
+        document.getElementById("slider_narrative_check").checked = false; 
+        document.getElementById("narrative_value").innerHTML = 0; 
+    }
+
+    // Quality score
+    document.getElementById("slider_quality").value = record['quality'];
+    document.getElementById("quality_value").innerHTML = record['quality'];
+    if (record['quality'] === 0) { 
+        document.getElementById("slider_quality_check").checked = false; 
+        document.getElementById("quality_value").innerHTML = 0; 
+    }
+
+    // Sound score
+    document.getElementById("slider_sound").value = record['sound'];
+    document.getElementById("sound_value").innerHTML = record['sound'];
+    if (record['sound'] === 0) { 
+        document.getElementById("slider_sound_check").checked = false; 
+        document.getElementById("sound_value").innerHTML = 0; 
+    }
+
+    // Content score
+    document.getElementById("slider_content").value = record['content'];
+    document.getElementById("content_value").innerHTML = record['content'];
+    if (record['content'] === 0) { 
+        document.getElementById("slider_content_check").checked = false; 
+        document.getElementById("content_value").innerHTML = 0; 
+    }
+
+    // Pacing score
+    document.getElementById("slider_pacing").value = record['pacing'];
+    document.getElementById("pacing_value").innerHTML = record['pacing'];
+    if (record['pacing'] === 0) { 
+        document.getElementById("slider_pacing_check").checked = false; 
+        document.getElementById("pacing_value").innerHTML = 0; 
+    }
+
+    // Balance score
+    document.getElementById("slider_balance").value = record['balance'];
+    document.getElementById("balance_value").innerHTML = record['balance'];
+    if (record['balance'] === 0) { 
+        document.getElementById("slider_balance_check").checked = false; 
+        document.getElementById("balance_value").innerHTML = 0; 
+    }
+
+    // UI/UX score
+    document.getElementById("slider_ui_ux").value = record['ui_ux'];
+    document.getElementById("ui_ux_value").innerHTML = record['ui_ux'];
+    if (record['ui_ux'] === 0) { 
+        document.getElementById("slider_ui_ux_check").checked = false; 
+        document.getElementById("ui_ux_value").innerHTML = 0; 
+    }
+
+    // Impression score
+    document.getElementById("slider_impression").value = record['impression'];
+    document.getElementById("impression_value").innerHTML = record['impression'];
+    if (record['impression'] === 0) { 
+        document.getElementById("slider_impression_check").checked = false; 
+        document.getElementById("impression_value").innerHTML = 0; 
+    }
 }
