@@ -150,55 +150,86 @@ body {
   background: #ff0000 url('../img/buttons/logout.png') no-repeat center;
 }
 
-/*.form-button#saveButton {
-  width: 50px;
-  height: 30px;
-  background: #fff url('../img/buttons/save.png') no-repeat center;
-  background-size: 25px 25px;
-  padding: 2px 8px;
-}
-
-.form-button#saveButton:hover {
-  background: limegreen url('../img/buttons/save.png') no-repeat center;
-  background-size: 25px 25px;
-}
-
-.form-button#cancelButton {
-  width: 50px;
-  height: 30px;
-  background: #fff url('../img/buttons/cancel.png') no-repeat center;
-  background-size: 25px 25px;
-  padding: 2px 8px;
-}
-
-.form-button#cancelButton:hover {
-  background: limegreen url('../img/buttons/cancel.png') no-repeat center;
-  background-size: 25px 25px;
-}*/
-
 .submit-div {
   margin-left: 23px;
 }
 
 /* Panel design */
 
-.mainPanel {
-  color: #fff;
+/* Add styling for the main container */
+.panel-container {
   width: 442px; 
   height: 225px;
-  background-color: #0f1114;
   margin-top: 15px;
   margin-left: 15px; 
   display: inline-block;
-  border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+/* Styling for the front and back panels */
+.front-panel,
+.back-panel {
+  position: absolute;
+  width: 442px; 
+  height: 227px;
+  box-sizing: border-box;
   border: 1px solid #000;
+  border-bottom-right-radius: 8px;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: transform 0.8s;
   background-position: 98% 96%;
-  /*background-attachment: fixed;*/
   background-repeat: no-repeat;
 }
-.mainPanel:hover {
+
+.front-panel:hover,
+.back-panel:hover {
   border: 1px solid #fff;
+}
+
+/* Styling for the front panel */
+.front-panel {
+  background-color: #0f1114;
+  color: #fff;
+}
+
+/* Styling for the back panel */
+.back-panel {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+/* Apply the flip effect on the flipped class */
+.panel-container.flipped .front-panel {
+  transform: rotateY(180deg);
+}
+
+.panel-container.flipped .back-panel {
+  transform: rotateY(0deg);
+}
+
+.panel-content-left {
+  width: 150px;
+  height: 225px;
+  margin: 0px;
+}
+
+.panel-content-right {
+  width: 100%;
+  height: 225px;
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.panel-content-inner {
+  display: flex;
+  align-items: center;
 }
 
 .spacer {
@@ -211,11 +242,6 @@ body {
   margin-left: 20px; 
 }
 
-.panelContainer {
-  display: flex;
-  align-items: center;
-}
-
 .dataContainer { 
   display: flex;
   flex-direction: column;
@@ -226,12 +252,6 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-}
-
-.rightPanel {
-  display: flex;
-  align-items: flex-start;
-  margin: 0;
 }
 
 .coverImage {
