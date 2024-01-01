@@ -27,21 +27,43 @@ function createPanelBody(record) {
     });
     frontPanel.appendChild(addInnerContent("front", record));
     frontPanel.style.backgroundImage = url;
+    backPanel.appendChild(addInnerContent("back", record));
     return container;
 }
 
 function addInnerContent(x, record) {
     let container = document.createElement('div');
-    container.className = "panel-content-inner";
     if(x === "front") {
-        var leftPanel = document.createElement('div');
+        container.className = "panel-content-inner-front";
+        let leftPanel = document.createElement('div');
         leftPanel.appendChild(addImage(record["cover_img_path"]));
         leftPanel.className = "panel-content-left"
-        var rightPanel = document.createElement('div');
+        let rightPanel = document.createElement('div');
         rightPanel.className = "panel-content-right";
         rightPanel.appendChild(renderData(record));
         container.appendChild(leftPanel);
         container.appendChild(rightPanel);
+    }
+    if(x === "back") {
+        // Header <TITLE>       -       <STATUS>
+        let header = document.createElement('div');
+        header.className = "panel-header-back";
+        // Title
+        let title = document.createElement('div');
+        title.className = "title";
+        title.textContent = record["name"];
+        // Edit button
+        let editButton = document.createElement('button');
+        editButton.className = "panel-back-edit";
+        editButton.addEventListener("click", (event) => {
+            openRecord(record);
+        });
+        // Score display
+        createScoreDisplay(record["sum_total"]);
+        header.appendChild(title);
+        header.appendChild(editButton);
+        container.appendChild(header);
+        container.appendChild(createScoreDisplay(record["sum_total"]));
     }
     return container;
 }
@@ -54,7 +76,7 @@ function renderData(record) {
     container.className = "dataContainer";
     // Header <TITLE>       -       <STATUS>
     var header = document.createElement('div');
-    header.className = "panelHeader";
+    header.className = "panel-header-front";
     // Title
     var title = document.createElement('div');
     title.className = "title";
@@ -205,7 +227,7 @@ function setStatus(status) {
     *   CANCELED    =>  Stopped playing
     */
     var icon = document.createElement('img');
-    icon.className = "statusIcon";
+    icon.className = "title-status-icon";
     switch (status) {
         case 'COMPLETED':
             icon.src = "img/status/completed.png";

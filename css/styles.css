@@ -199,7 +199,7 @@ body {
 
 /* Styling for the back panel */
 .back-panel {
-  background-color: dodgerblue;
+  background-color: #0f1114;
   color: white;
   transform: rotateY(180deg);
 }
@@ -227,7 +227,12 @@ body {
   margin: 0;
 }
 
-.panel-content-inner {
+.panel-content-inner-front {
+  display: flex;
+  align-items: center;
+}
+
+.panel-content-inner-back {
   display: flex;
   align-items: center;
 }
@@ -260,12 +265,20 @@ body {
   margin: 0px;
 }
 
-.panelHeader {
+.panel-header-front {
   display: flex;
   flex-direction: row;
   justify-content: space-between; /* Add this line */
   align-items: flex-start;
   width: 290px;
+}
+
+.panel-header-back {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Add this line */
+  align-items: flex-start;
+  width: 442px;
 }
 
 .title {
@@ -276,12 +289,26 @@ body {
   font-size: 15px;
 }
 
-.statusIcon {
+.title-status-icon {
   height: 20px;
   width: 20px;
   margin-top: 10px;
   margin-right: 10px;
-  /* Remove the 'float: right;' property */
+  float: right;
+}
+
+.panel-back-edit {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 0px;
+    width: 50px;
+    height: 30px;
+    background: #fff url('../img/buttons/edit.png') no-repeat center;
+    padding: 2px 8px;
 }
 
 .scoreDisplay {
