@@ -2,47 +2,48 @@ var isReplay = false;
 var currentYear;
 var afterReload = false;
 
+
+
 function createPanelBody(record) {
-    //if(afterReload) { currentYear = null; afterReload = false }
-    // Yearly spacer
-    let year = new Date(record["date_end"]).getFullYear();
-    if(currentYear == null) {
-        currentYear = year;
-        createSpacer(currentYear, true)
-    }
-    
-    if(currentYear != year) {
-        currentYear = year;
-        createSpacer(currentYear, false)
-    }
-    //
-    setReplayStatus(record["replay"]);
-    // Main panel
-    var mainPanel = document.createElement('div');
-    mainPanel.id = record["record_id"];
-    mainPanel.className = "mainPanel";
-    // Container for left and right panels
-    var panelContainer = document.createElement('div');
-    panelContainer.className = "panelContainer";
-    // Left side
-    var leftPanel = document.createElement('div');
-    // Right side
-    var rightPanel = document.createElement('div');
-    panelContainer.className = "rightPanel";
-
-    // Build everything together  
-    panelContainer.appendChild(leftPanel);
-    panelContainer.appendChild(rightPanel);
-    mainPanel.appendChild(panelContainer);
-
-    leftPanel.appendChild(addImage(record["cover_img_path"]));
-    rightPanel.appendChild(renderData(record));
     let url = `url('${setRecordBackground(record["location_name"])}')`;
-    mainPanel.style.backgroundImage = url;
-    mainPanel.addEventListener("click", (event) => {
-        openRecord(record);
+    checkForSpacer(new Date(record["date_end"]).getFullYear());
+    setReplayStatus(record["replay"]);
+    // Main container
+    let container = document.createElement('div');
+    container.id = record["record_id"];
+    container.className = "panel-container";
+    // Front panel
+    let frontPanel = document.createElement('div');
+    frontPanel.className = "front-panel";
+    // Back panel
+    let backPanel = document.createElement('div');
+    backPanel.className = "back-panel";
+    // Append front and back panels to the main container
+    container.appendChild(frontPanel);
+    container.appendChild(backPanel);
+    // Toggle the flipped class on click
+    container.addEventListener("click", () => {
+        container.classList.toggle('flipped');
     });
-    return mainPanel;
+    frontPanel.appendChild(addInnerContent("front", record));
+    frontPanel.style.backgroundImage = url;
+    return container;
+}
+
+function addInnerContent(x, record) {
+    let container = document.createElement('div');
+    container.className = "panel-content-inner";
+    if(x === "front") {
+        var leftPanel = document.createElement('div');
+        leftPanel.appendChild(addImage(record["cover_img_path"]));
+        leftPanel.className = "panel-content-left"
+        var rightPanel = document.createElement('div');
+        rightPanel.className = "panel-content-right";
+        rightPanel.appendChild(renderData(record));
+        container.appendChild(leftPanel);
+        container.appendChild(rightPanel);
+    }
+    return container;
 }
 
 function renderData(record) {
@@ -246,3 +247,58 @@ function createSpacer(year, firstSpacer) {
     contentMaster.appendChild(spacer);
 }
 
+function checkForSpacer(year) {
+    if(currentYear == null) {
+        currentYear = year;
+        createSpacer(currentYear, true)
+    }
+    
+    if(currentYear != year) {
+        currentYear = year;
+        createSpacer(currentYear, false)
+    }
+}
+
+function createPanelBody2(record) {
+    //if(afterReload) { currentYear = null; afterReload = false }
+    // Yearly spacer
+    let year = new Date(record["date_end"]).getFullYear();
+    if(currentYear == null) {
+        currentYear = year;
+        createSpacer(currentYear, true)
+    }
+    
+    if(currentYear != year) {
+        currentYear = year;
+        createSpacer(currentYear, false)
+    }
+    //
+    setReplayStatus(record["replay"]);
+    // Main panel
+    var mainPanel = document.createElement('div');
+    mainPanel.id = record["record_id"];
+    mainPanel.className = "mainPanel";
+    // Container for left and right panels
+    var panelContainer = document.createElement('div');
+    panelContainer.className = "panelContainer";
+    // Left side
+    var leftPanel = document.createElement('div');
+    // Right side
+    var rightPanel = document.createElement('div');
+    panelContainer.className = "rightPanel";
+
+    // Build everything together  
+    panelContainer.appendChild(leftPanel);
+    panelContainer.appendChild(rightPanel);
+    mainPanel.appendChild(panelContainer);
+
+    leftPanel.appendChild(addImage(record["cover_img_path"]));
+    rightPanel.appendChild(renderData(record));
+    let url = `url('${setRecordBackground(record["location_name"])}')`;
+    mainPanel.style.backgroundImage = url;
+    mainPanel.addEventListener("click", (event) => {
+        //openRecord(record);
+        mainPanel.classList.toggle('flipped');
+    });
+    return mainPanel;
+}
