@@ -273,7 +273,7 @@ body {
   margin-left: 10px;
   margin-bottom: 5px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .statusIcon {
@@ -298,13 +298,28 @@ body {
   margin-left: 10px;
 }
 
+.display-score {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  height: 22px;
+  width: 40px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2px;
+}
+
 .medal {
-  margin-left: 6px;
+  margin-top: 2px;
+  margin-left: 1px;
   height: 20px;
   width: 20px;
 }
 
 .iconReplay {
+  margin-top: 2px;
   margin-left: 6px;
   height: 20px;
   width: 20px;
@@ -312,7 +327,7 @@ body {
 
 .dateContainerParent {
   color: #fff;
-  margin-left: 5px;
+  margin-left: 1px;
   margin-top: 10px;
 }
 
@@ -321,14 +336,14 @@ body {
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-left: 15px;
+  margin-left: 5px;
   margin-top: 10px;
   gap: 10px;
 }
 
 .noteContainerParent {
   color: #fff;
-  margin-left: 10px;
+  margin-left: 5px;
   margin-top: 15px;
 }
 

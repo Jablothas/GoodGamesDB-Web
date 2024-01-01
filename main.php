@@ -15,7 +15,7 @@ validateSession();
         <script src="js/functions.js"></script>
         <script src="js/record.js"></script>
         <script src="js/input.js"></script>
-        <title>GoodGamesDB 4.17</title>
+        <title>GoodGamesDB 0.4.21</title>
     </head>
     <header>
         <div class="header">

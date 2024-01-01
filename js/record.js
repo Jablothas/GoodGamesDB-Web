@@ -154,16 +154,16 @@ function createScoreDisplay(sum) {
     scoreContainer.className = "scoreContainer";
     // score element
     var score = document.createElement('div');
-    score.className = "scoreDisplay";
+    score.className = "display-score";
     score.textContent = sum;
     scoreContainer.appendChild(score);
     // Change color based on value
-    if(sum >= 80) score.style.backgroundColor = "#008000"
-    else if(sum >= 70) score.style.backgroundColor = "#FFBE5B"
-    else if(sum >= 61) score.style.backgroundColor = "#C77700"
-    else score.style.backgroundColor = "#C70000"
+    if(sum >= 80) score.style.color = "limegreen";
+    else if(sum >= 70) score.style.color = "yellowgreen";
+    else if(sum >= 61) score.style.color = "yellow";
+    else score.style.color = "#C70000";
     if(sum == 0) {
-        score.style.backgroundColor = "grey";
+        score.style.color = "grey";
         score.textContent = "-";
     }
     // medal element
