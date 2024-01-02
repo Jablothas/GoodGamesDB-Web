@@ -88,7 +88,7 @@ function buildGrid() {
         case 'filterByInput':
             contentMaster.innerHTML = '';
             for (let record of recordList) {
-                if(record["name"].toString().includes(keyword)) contentMaster.appendChild(createPanelBody(record));
+                if(record["name"].toString().toUpperCase().includes(keyword.toUpperCase())) contentMaster.appendChild(createPanelBody(record));
             }
             document.body.appendChild(contentMaster);    
             break;
