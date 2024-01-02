@@ -54,7 +54,7 @@ validateSession();
                                     <br>Location
                                 </div>
                                 <div>
-                                    <select class="small-input" id="location" name="location" onblur="checkIfSteam()">
+                                    <select tabindex="0" class="small-input" id="location" name="location" onblur="checkIfSteam()">
                                     </select>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_gameplay" min="1" max="10" value="1" oninput="updateSlider('slider_gameplay')">
                                         <span id="gameplay_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_gameplay_check" name="slider_gameplay_check" onclick="disableSlider('slider_gameplay')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_gameplay_check" name="slider_gameplay_check" onclick="disableSlider('slider_gameplay')" checked>
                                     </div>
                                 </div>
 
@@ -153,7 +153,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_presentation" min="1" max="10" value="1" oninput="updateSlider('slider_presentation')">
                                         <span id="presentation_value" class="slider-value"> 1</span>
-                                        <input type="checkbox" id="slider_presentation_check" name="slider_presentation_check" onclick="disableSlider('slider_presentation')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_presentation_check" name="slider_presentation_check" onclick="disableSlider('slider_presentation')" checked>
                                     </div>
                                 </div>
 
@@ -164,7 +164,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_narrative" min="1" max="10" value="1" oninput="updateSlider('slider_narrative')">
                                         <span id="narrative_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_narrative_check" name="slider_narrative_check" onclick="disableSlider('slider_narrative')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_narrative_check" name="slider_narrative_check" onclick="disableSlider('slider_narrative')" checked>
                                     </div>
                                 </div>
 
@@ -175,7 +175,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_quality" min="1" max="10" value="1" oninput="updateSlider('slider_quality')">
                                         <span id="quality_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_quality_check" name="slider_quality_check" onclick="disableSlider('slider_quality')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_quality_check" name="slider_quality_check" onclick="disableSlider('slider_quality')" checked>
                                     </div>
                                 </div>
 
@@ -186,7 +186,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_sound" min="1" max="10" value="1" oninput="updateSlider('slider_sound')">
                                         <span id="sound_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_sound_check" name="slider_sound_check" onclick="disableSlider('slider_sound')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_sound_check" name="slider_sound_check" onclick="disableSlider('slider_sound')" checked>
                                     </div>
                                 </div>
                                 <!--
@@ -203,7 +203,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_content" min="1" max="10" value="1" oninput="updateSlider('slider_content')">
                                         <span id="content_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_content_check" name="slider_content_check" onclick="disableSlider('slider_content')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_content_check" name="slider_content_check" onclick="disableSlider('slider_content')" checked>
                                     </div>
                                 </div>
 
@@ -214,7 +214,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_pacing" min="1" max="10" value="1" oninput="updateSlider('slider_pacing')">
                                         <span id="pacing_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_pacing_check" name="slider_pacing_check" onclick="disableSlider('slider_pacing')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_pacing_check" name="slider_pacing_check" onclick="disableSlider('slider_pacing')" checked>
                                     </div>
                                 </div>
 
@@ -225,7 +225,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_balance" min="1" max="10" value="1" oninput="updateSlider('slider_balance')">
                                         <span id="balance_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_balance_check" name="slider_balance_check" onclick="disableSlider('slider_balance')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_balance_check" name="slider_balance_check" onclick="disableSlider('slider_balance')" checked>
                                     </div>
                                 </div>
 
@@ -236,7 +236,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_ui_ux" min="1" max="10" value="1" oninput="updateSlider('slider_ui_ux')">
                                         <span id="ui_ux_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_ui_ux_check" name="slider_ui_ux_check" onclick="disableSlider('slider_ui_ux')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_ui_ux_check" name="slider_ui_ux_check" onclick="disableSlider('slider_ui_ux')" checked>
                                     </div>
                                 </div>
                                 <!-- Slider Impression -->
@@ -246,7 +246,7 @@ validateSession();
                                     <div style="display: flex; align-items: center;">
                                         <input type="range" id="slider_impression" min="1" max="10" value="1" oninput="updateSlider('slider_impression')">
                                         <span id="impression_value" class="slider-value">1</span>
-                                        <input type="checkbox" id="slider_impression_check" name="slider_impression_check" onclick="disableSlider('slider_impression')" checked>
+                                        <input tabindex="-1" type="checkbox" id="slider_impression_check" name="slider_impression_check" onclick="disableSlider('slider_impression')" checked>
                                     </div>
                                 </div>
                             </div>
