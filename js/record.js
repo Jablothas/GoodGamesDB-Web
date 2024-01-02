@@ -61,9 +61,10 @@ function addInnerContent(x, record) {
         // Score display
         createScoreDisplay(record["sum_total"]);
         header.appendChild(title);
-        header.appendChild(editButton);
         container.appendChild(header);
         container.appendChild(createScoreDisplay(record["sum_total"]));
+        container.appendChild(renderDataBackPanel(record));
+        header.appendChild(editButton);
     }
     return container;
 }
@@ -73,7 +74,7 @@ function renderData(record) {
     let recordStatus = record["status"]
     // Main container
     var container = document.createElement('div');
-    container.className = "dataContainer";
+    container.className = "panel-content-front";
     // Header <TITLE>       -       <STATUS>
     var header = document.createElement('div');
     header.className = "panel-header-front";
@@ -91,6 +92,73 @@ function renderData(record) {
     container.appendChild(setDates(record["date_start"], record["date_end"], record["status"]));
     if(record["note"] != "") container.appendChild(setNote(record["note"]));
     return container;
+}
+
+function renderDataBackPanel(record) {
+    let container = document.createElement('div');
+    container.className = "panel-container-back";
+    let innerParent = document.createElement('div');
+    let leftTitle = document.createElement('div');
+    leftTitle.textContent = "In-depth scoring";
+    leftTitle.className = "panel-content-back-title-scores";
+    let innerChildCol1 = document.createElement('div');
+    let innerChildCol2 = document.createElement('div');
+    container.appendChild(leftTitle);
+    innerParent.appendChild(innerChildCol1);
+    innerParent.appendChild(innerChildCol2);
+    innerChildCol1.appendChild(createSingleScore("Gameplay", record["gameplay"], record["status"]));
+    innerChildCol1.appendChild(createSingleScore("Presentation", record["presentation"], record["status"]));
+    innerChildCol1.appendChild(createSingleScore("Narrative", record["narrative"], record["status"]));
+    innerChildCol1.appendChild(createSingleScore("Quality", record["quality"], record["status"]));
+    innerChildCol1.appendChild(createSingleScore("Sound", record["sound"], record["status"]));
+    innerChildCol2.appendChild(createSingleScore("Content", record["content"], record["status"]));
+    innerChildCol2.appendChild(createSingleScore("Pacing", record["pacing"], record["status"]));
+    innerChildCol2.appendChild(createSingleScore("Balance", record["balance"], record["status"]));
+    innerChildCol2.appendChild(createSingleScore("UI/UX", record["ui_ux"], record["status"]));
+    innerChildCol2.appendChild(createSingleScore("Impression", record["impression"], record["status"]));
+    innerParent.appendChild(addStats(record));
+    innerParent.className = "panel-content-back-parent";
+    container.appendChild(innerParent);
+    return container;
+}
+
+function createSingleScore(name, score, status) {
+    let container = document.createElement('div');
+    container.className = "single-score";
+    let digit = document.createElement('div');
+    digit.className = "single-score-digit";
+    digit.textContent = score;
+    let text = document.createElement('div');
+    text.className = "single-score-text";
+    text.textContent = name;
+    if(status === "PLAYING") digit.textContent = "?";
+    if(score == "0") { digit.style.color = "grey"; text.style.color = "grey"; }
+    container.appendChild(digit);
+    container.appendChild(text);
+    return container;
+}
+
+function addStats(record) {
+    let container = document.createElement('div');
+    container.className = "stats";
+    container.appendChild(addStatsRow(12, "days", "Time past since start"));
+    container.appendChild(addStatsRow(1144, "hours",  "Total playtime"));
+    container.appendChild(addStatsRow(1, "time", "Total playthroughs"));
+    return container;
+}
+
+function addStatsRow(number, unit, title) {
+    let row = document.createElement('div');
+    row.className = "stats-row";
+    let stat_title = document.createElement('div');
+    stat_title.textContent = title;
+    stat_title.className = "stats-title"
+    let digit = document.createElement('div');
+    digit.textContent = number + " " + unit;
+    digit.className = "stats-digit";
+    row.appendChild(stat_title);
+    row.appendChild(digit);
+    return row;
 }
 
 function openRecord(record) {
@@ -166,14 +234,14 @@ function setNote(note) {
 
 function addImage(img) {
     var coverImage = document.createElement("img");
-    coverImage.className = "coverImage";
+    coverImage.className = "cover-image";
     coverImage.src = "img/covers/" + img;
     return coverImage;
 }
 
 function createScoreDisplay(sum) {
     var scoreContainer = document.createElement('div');
-    scoreContainer.className = "scoreContainer";
+    scoreContainer.className = "scores";
     // score element
     var score = document.createElement('div');
     score.className = "display-score";
