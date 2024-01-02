@@ -306,14 +306,17 @@ function cleanLocalStorage() {
 }
 
 function calcDaysBetweenDates(startDate, endDate) {
-        // Parse the date strings to create Date objects
-        const startDateObj = new Date(startDate);
-        const endDateObj = new Date(endDate);
-        // Calculate the time difference in milliseconds
-        const timeDifference = endDateObj - startDateObj;
-        // Calculate the number of days
-        const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-        return days;
+    // Parse the date strings to create Date objects
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    // Set the time to midnight for both dates
+    startDateObj.setHours(0, 0, 0, 0);
+    endDateObj.setHours(0, 0, 0, 0);
+    // Calculate the time difference in milliseconds
+    const timeDifference = endDateObj - startDateObj;
+    // Calculate the number of days, including the start and end days
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+    return days;
 }
 
 function countPlaythroughs(name) {
