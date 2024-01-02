@@ -141,9 +141,23 @@ function createSingleScore(name, score, status) {
 function addStats(record) {
     let container = document.createElement('div');
     container.className = "stats";
-    container.appendChild(addStatsRow(12, "days", "Time past since start"));
-    container.appendChild(addStatsRow(1144, "hours",  "Total playtime"));
-    container.appendChild(addStatsRow(1, "time", "Total playthroughs"));
+    let days = 0;
+    let titleText = "Days needed to finish";
+    let playtime = record["playtime"];
+    let playthroughCount = countPlaythroughs(record["name"]);
+    let timeTimesString = "";
+    if(playthroughCount == 1) timeTimesString = "time";
+    if(playthroughCount > 1 || playthroughCount == 0) timeTimesString = "times";
+    if(record["date_start"] != '' && record["status"] != "PLAYING") { 
+        days = calcDaysBetweenDates(record["date_start"], record["date_end"]); 
+    }
+    if(record["date_start"] != '' && record["status"] == "PLAYING") { 
+        days = calcDaysBetweenDates(record["date_start"], getCurrentDate()); 
+        titleText = "Currently playing since";
+    }
+    container.appendChild(addStatsRow(days, "days", titleText));
+    container.appendChild(addStatsRow(playtime, "hours",  "Total playtime"));
+    container.appendChild(addStatsRow(playthroughCount, timeTimesString, "Total playthroughs"));
     return container;
 }
 
@@ -155,6 +169,7 @@ function addStatsRow(number, unit, title) {
     stat_title.className = "stats-title"
     let digit = document.createElement('div');
     digit.textContent = number + " " + unit;
+    if(number == 0) digit.textContent = "Unknown";
     digit.className = "stats-digit";
     row.appendChild(stat_title);
     row.appendChild(digit);
