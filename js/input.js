@@ -182,7 +182,7 @@ function disableSlider(sliderId) {
 
 function cleanForm() {
     document.getElementById("cancelButton").style.visibility = 'visible';
-    document.getElementById("cancelButton").style.backgroundColor = '#fff';
+    //document.getElementById("cancelButton").style.backgroundColor = '#fff';
     document.getElementById('img-cover-text').innerText = 'Upload';
     document.getElementById('img-cover').src = "img/covers/default.png";
     document.getElementById('location').value = locationList[0];
@@ -203,7 +203,7 @@ function cleanForm() {
 }
 
 function saveNewEntry() {
-    document.getElementById("saveButton").innerHTML = "Save";
+    document.getElementById("saveButton").innerHTML = "";
     let record_id = document.getElementById("record-id").value;
     let score_id = document.getElementById("score-id").value;
     let cover = document.getElementById("img-path").value;
@@ -499,7 +499,7 @@ function updateForm(record) {
 
     }
     document.getElementById("img-path").value = record['cover_img_path'];
-    document.getElementById("saveButton").innerHTML = "Save changes";
+    document.getElementById("saveButton").innerHTML = "";
     document.getElementById("cancelButton").style.visibility = 'hidden';
 }
 

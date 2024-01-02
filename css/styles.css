@@ -52,7 +52,7 @@ body {
   width: 125px;
   height: 125px;
   border: 8px solid #fff;
-  border-top: 8px solid limegreen;
+  border-top: 8px solid dodgerblue;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -62,7 +62,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: limegreen;
+  color: dodgerblue;
 }
 
 @keyframes spin {
@@ -110,7 +110,7 @@ body {
 }
 
 .button#addButton:hover {
-  background: limegreen url('../img/buttons/add.png') no-repeat center;
+  background: dodgerblue url('../img/buttons/add.png') no-repeat center;
 }
 
 .button#addButton:disabled {
@@ -199,7 +199,7 @@ body {
 
 /* Styling for the back panel */
 .back-panel {
-  background-color: dodgerblue;
+  background-color: #0f1114;
   color: white;
   transform: rotateY(180deg);
 }
@@ -227,7 +227,12 @@ body {
   margin: 0;
 }
 
-.panel-content-inner {
+.panel-content-inner-front {
+  display: flex;
+  align-items: center;
+}
+
+.panel-content-inner-back {
   display: flex;
   align-items: center;
 }
@@ -242,25 +247,89 @@ body {
   margin-left: 20px; 
 }
 
-.dataContainer { 
+.panel-content-front .panel-content-back { 
   display: flex;
   flex-direction: column;
   align-items: left;
 }
 
-.scoreContainer {
+.panel-content-back-parent {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  height: 80px;
+  width: 245px;
+}
+
+.panel-content-back-title-scores {
+  margin: 10px;
+  color: grey;
+}
+
+.scores {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 }
 
-.coverImage {
+.single-score {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Updated to center vertically */
+  padding: 2px;
+}
+
+.single-score-digit {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.single-score-text {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  border-left: 1px solid grey;
+  margin-left: 40px;
+  height: 115px;
+  align-items: flex-start; /* Align items vertically */
+}
+
+.stats-row {
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* Align items horizontally */
+  height: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.stats-title {
+  color: #fff;
+  font-weight: normal;
+  font-size: 12px;
+  width: 150px;
+}
+
+.stats-digit {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.cover-image {
   width: 150px;
   height: 225px;
   margin: 0px;
 }
 
-.panelHeader {
+.panel-header-front {
   display: flex;
   flex-direction: row;
   justify-content: space-between; /* Add this line */
@@ -268,43 +337,73 @@ body {
   width: 290px;
 }
 
+.panel-header-back {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Add this line */
+  align-items: flex-start;
+  width: 442px;
+}
+
 .title {
   margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 5px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
 }
 
-.statusIcon {
+.title-status-icon {
   height: 20px;
   width: 20px;
   margin-top: 10px;
   margin-right: 10px;
-  /* Remove the 'float: right;' property */
+  float: right;
 }
 
-.scoreDisplay {
+.panel-back-edit {
+  position: absolute;
+  top: 0; /* Adjust as needed */
+  right: 0; /* Adjust as needed */
+  background-color: #fff;
+  color: #000;
+  padding: 10px 20px;
+  margin: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 0px;
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/edit.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.panel-back-edit:hover {
+  background: dodgerblue url('../img/buttons/edit.png') no-repeat center;
+}
+
+.display-score {
   color: #fff;
   font-weight: bold;
-  background-color: #606060;
+  font-size: 20px;
   height: 22px;
   width: 40px;
-  text-align: center;
+  text-align: left;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 6px;
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .medal {
-  margin-left: 6px;
+  margin-top: 2px;
+  margin-left: 1px;
   height: 20px;
   width: 20px;
 }
 
 .iconReplay {
+  margin-top: 2px;
   margin-left: 6px;
   height: 20px;
   width: 20px;
@@ -312,7 +411,7 @@ body {
 
 .dateContainerParent {
   color: #fff;
-  margin-left: 5px;
+  margin-left: 1px;
   margin-top: 10px;
 }
 
@@ -321,14 +420,14 @@ body {
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-left: 15px;
+  margin-left: 5px;
   margin-top: 10px;
   gap: 10px;
 }
 
 .noteContainerParent {
   color: #fff;
-  margin-left: 10px;
+  margin-left: 5px;
   margin-top: 15px;
 }
 

@@ -15,7 +15,7 @@ validateSession();
         <script src="js/functions.js"></script>
         <script src="js/record.js"></script>
         <script src="js/input.js"></script>
-        <title>GoodGamesDB 4.17</title>
+        <title>GoodGamesDB 0.4.21</title>
     </head>
     <header>
         <div class="header">
@@ -41,7 +41,7 @@ validateSession();
         <!-- Popup Box for add new entry -->
         <div id="dialogModal" class="modal">
             <div id="modal-content" class="modal-content">
-                <div id="edit-mode" class="edit-mode">Edit-Mode enabled</div>
+                <div id="edit-mode" class="edit-mode" hidden></div>
               <span class="close">&times;</span>
               <div id="img-cover-text" class="img-cover-text">Select</div>
               <form>
@@ -256,7 +256,7 @@ validateSession();
                 </div>
             </form>
             <div class="submit-div">
-                <button class="form-button" id="saveButton" onclick="saveNewEntry()">Save</button><button class="form-button" id="cancelButton" onclick="resetEntry()">Reset</button>
+                <button class="form-button" id="saveButton" onclick="saveNewEntry()"></button><button class="form-button-reset" id="cancelButton" onclick="resetEntry()"></button>
             </div>
             
             </div>    

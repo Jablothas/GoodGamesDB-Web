@@ -17,6 +17,7 @@
   padding: 20px;
   border: 1px solid #fff;
   width: 1410px;
+  margin-top: 205px;
 }
 
 /* The Close Button */
@@ -121,7 +122,7 @@ div {
 }
 
 .basic-input:focus {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid dodgerblue;
     outline: 0px;
 }
 
@@ -136,7 +137,7 @@ div {
 }
 
 .small-input:focus {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid dodgerblue;
     outline: 0px;
 }
 
@@ -152,7 +153,7 @@ div {
 }
 
 .textarea-input:focus {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid dodgerblue;
     outline: 0px;
 }
 
@@ -170,7 +171,7 @@ div {
 }
 
 .search-input:focus {
-    border-bottom: 0px solid limegreen;
+    border-bottom: 0px solid dodgerblue;
     outline: 0px;
 }
 
@@ -185,7 +186,7 @@ div {
 }
 
 .custom-select:focus {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid dodgerblue;
     outline: 0px;
 }
 
@@ -198,7 +199,7 @@ div {
 }
 
 .small-custom-select:focus {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid dodgerblue;
     outline: 0px;
 }
 
@@ -241,19 +242,37 @@ input[type="checkbox"] {
 }
 
 .form-button {
-  background-color: #fff;
   color: #000;
   padding: 10px 20px;
-  margin-right: 10px;
-  margin-top: 5px;
+  margin-left: 10px;
   text-decoration: none;
   border-radius: 5px;
   border: 0px;
-  font-weight: bold;
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/save.png') no-repeat center;
+  padding: 2px 8px;
 }
 
 .form-button:hover {
-  background-color: limegreen;
+  background: dodgerblue url('../img/buttons/save.png') no-repeat center;
+}
+
+.form-button-reset {
+  color: #000;
+  padding: 10px 20px;
+  margin-left: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 0px;
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/reset.png') no-repeat center;
+  padding: 2px 8px;
+}
+
+.form-button-reset:hover {
+  background: dodgerblue url('../img/buttons/reset.png') no-repeat center;
 }
 
 /* CHECKMARK */

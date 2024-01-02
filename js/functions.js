@@ -88,7 +88,7 @@ function buildGrid() {
         case 'filterByInput':
             contentMaster.innerHTML = '';
             for (let record of recordList) {
-                if(record["name"].toString().includes(keyword)) contentMaster.appendChild(createPanelBody(record));
+                if(record["name"].toString().toUpperCase().includes(keyword.toUpperCase())) contentMaster.appendChild(createPanelBody(record));
             }
             document.body.appendChild(contentMaster);    
             break;
@@ -114,7 +114,7 @@ function addButtonClick(record) {
     checkSession();
     cleanForm();
     setRecordStatus();
-    document.getElementById("saveButton").innerHTML = "Save";
+    document.getElementById("saveButton").innerHTML = "";
     let modal = document.getElementById("dialogModal");
     let modalContent = document.getElementById("modal-content");
     let editModeInfo = document.getElementById("edit-mode");
@@ -136,7 +136,7 @@ function addButtonClick(record) {
     else {
         document.getElementById('img-cover-text').innerText = '';
         modal.style.display = "inline-block";
-        modalContent.style.border = "1px solid limegreen";
+        modalContent.style.border = "1px solid #fff";
         editModeInfo.style.display = "inline-block";
         updateForm(record);
 
@@ -303,4 +303,20 @@ function cleanLocalStorage() {
     localStorage.removeItem('lastUpdate');
     localStorage.removeItem('playedGamesList');
     notify("Local data is outdated and has been deleted.")
+}
+
+function calcDaysBetweenDates(startDate, endDate) {
+        // Parse the date strings to create Date objects
+        const startDateObj = new Date(startDate);
+        const endDateObj = new Date(endDate);
+        // Calculate the time difference in milliseconds
+        const timeDifference = endDateObj - startDateObj;
+        // Calculate the number of days
+        const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+        return days;
+}
+
+function countPlaythroughs(name) {
+        const filteredRecords = recordList.filter(record => record["name"] === name);
+        return filteredRecords.length;
 }
