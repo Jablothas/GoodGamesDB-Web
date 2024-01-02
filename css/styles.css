@@ -52,7 +52,7 @@ body {
   width: 125px;
   height: 125px;
   border: 8px solid #fff;
-  border-top: 8px solid limegreen;
+  border-top: 8px solid dodgerblue;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -62,7 +62,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: limegreen;
+  color: dodgerblue;
 }
 
 @keyframes spin {
@@ -110,7 +110,7 @@ body {
 }
 
 .button#addButton:hover {
-  background: limegreen url('../img/buttons/add.png') no-repeat center;
+  background: dodgerblue url('../img/buttons/add.png') no-repeat center;
 }
 
 .button#addButton:disabled {
@@ -376,6 +376,10 @@ body {
   height: 30px;
   background: #fff url('../img/buttons/edit.png') no-repeat center;
   padding: 2px 8px;
+}
+
+.panel-back-edit:hover {
+  background: dodgerblue url('../img/buttons/edit.png') no-repeat center;
 }
 
 .display-score {

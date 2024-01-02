@@ -114,7 +114,7 @@ function addButtonClick(record) {
     checkSession();
     cleanForm();
     setRecordStatus();
-    document.getElementById("saveButton").innerHTML = "Save";
+    document.getElementById("saveButton").innerHTML = "";
     let modal = document.getElementById("dialogModal");
     let modalContent = document.getElementById("modal-content");
     let editModeInfo = document.getElementById("edit-mode");
@@ -136,7 +136,7 @@ function addButtonClick(record) {
     else {
         document.getElementById('img-cover-text').innerText = '';
         modal.style.display = "inline-block";
-        modalContent.style.border = "1px solid limegreen";
+        modalContent.style.border = "1px solid #fff";
         editModeInfo.style.display = "inline-block";
         updateForm(record);
 
