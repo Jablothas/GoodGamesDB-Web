@@ -264,8 +264,9 @@ function createScoreDisplay(sum) {
     scoreContainer.appendChild(score);
     // Change color based on value
     if(sum >= 80) score.style.color = "limegreen";
-    else if(sum >= 70) score.style.color = "yellowgreen";
-    else if(sum >= 61) score.style.color = "yellow";
+    else if(sum >= 75) score.style.color = "yellowgreen";
+    else if(sum >= 70) score.style.color = "yellow";
+    else if(sum >= 65) score.style.color = "orange";
     else score.style.color = "#C70000";
     if(sum == 0) {
         score.style.color = "grey";
