@@ -81,14 +81,37 @@ function buildGrid() {
         case 'std':
             contentMaster.innerHTML = '';
             for (let record of recordList) {
-                contentMaster.appendChild(createPanelBody(record));
+                contentMaster.appendChild(createPanelBody(record, true));
             }
             document.body.appendChild(contentMaster);    
             break;
         case 'filterByInput':
             contentMaster.innerHTML = '';
+            const keywords = keyword.split("+");
             for (let record of recordList) {
-                if(record["name"].toString().toUpperCase().includes(keyword.toUpperCase())) contentMaster.appendChild(createPanelBody(record));
+                if (record["sum_total"] === 0) {
+                    continue;
+                }
+                for (let kw of keywords) {
+                    if (kw.length > 2) {
+                        if (kw.startsWith(">")) {
+                            const value = parseFloat(kw.substring(1));
+                            if (!isNaN(value) && value >= 0 && value <= 100 && record["sum_total"] > value) {
+                                contentMaster.appendChild(createPanelBody(record, false));
+                                break;
+                            }
+                        } else if (kw.startsWith("<")) {
+                            const value = parseFloat(kw.substring(1));
+                            if (!isNaN(value) && value >= 0 && value <= 100 && record["sum_total"] < value) {
+                                contentMaster.appendChild(createPanelBody(record, false));
+                                break; 
+                            }
+                        } else if (record["name"].toString().toUpperCase().includes(kw.toUpperCase())) {
+                            contentMaster.appendChild(createPanelBody(record));
+                            break; 
+                        }
+                    }
+                }
             }
             document.body.appendChild(contentMaster);    
             break;
@@ -200,7 +223,7 @@ function showLoader(op) {
 
 function filterBySearch() {
     let input = document.getElementById("searchbar").value.length
-    if(input > 3) {
+    if(input > 1) {
         filter = "filterByInput";
         keyword = document.getElementById("searchbar").value;
         buildGrid();

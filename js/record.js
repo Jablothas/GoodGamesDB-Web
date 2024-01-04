@@ -4,9 +4,9 @@ var afterReload = false;
 
 
 
-function createPanelBody(record) {
+function createPanelBody(record, splitter) {
     let url = `url('${setRecordBackground(record["location_name"])}')`;
-    checkForSpacer(new Date(record["date_end"]).getFullYear());
+    if(splitter) checkForSpacer(new Date(record["date_end"]).getFullYear());
     setReplayStatus(record["replay"]);
     // Main container
     let container = document.createElement('div');
