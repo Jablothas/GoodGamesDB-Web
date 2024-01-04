@@ -10,8 +10,10 @@ validateSession();
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
+        <link rel="stylesheet" type="text/css" href="css/swal.css">
         <script src="js/components/jquery-3.7.1.js"></script>
         <script src="js/components/notify.js"></script>
+        <script src="js/components/sweetalert2.all.min.js"></script>
         <script src="js/functions.js"></script>
         <script src="js/record.js"></script>
         <script src="js/input.js"></script>
@@ -257,6 +259,7 @@ validateSession();
             </form>
             <div class="submit-div">
                 <button class="form-button" id="saveButton" onclick="saveNewEntry()"></button><button class="form-button-reset" id="cancelButton" onclick="resetEntry()"></button>
+                <button class="form-button-delete" id="deleteButton" onclick="askForDelete()"></button>
             </div>
             
             </div>    

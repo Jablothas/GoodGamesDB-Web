@@ -501,6 +501,7 @@ function updateForm(record) {
     document.getElementById("img-path").value = record['cover_img_path'];
     document.getElementById("saveButton").innerHTML = "";
     document.getElementById("cancelButton").style.visibility = 'hidden';
+    document.getElementById("deleteButton").style.visibility = 'visible';
 }
 
 function getPreviousScores(record) {

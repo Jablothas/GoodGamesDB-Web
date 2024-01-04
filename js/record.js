@@ -6,7 +6,9 @@ var afterReload = false;
 
 function createPanelBody(record, splitter) {
     let url = `url('${setRecordBackground(record["location_name"])}')`;
-    if(splitter) checkForSpacer(new Date(record["date_end"]).getFullYear());
+    let date = new Date(record["date_end"]).getFullYear();
+    if(date === 9999) date = new Date(getCurrentDate()).getFullYear();
+    if(splitter) checkForSpacer(date);
     setReplayStatus(record["replay"]);
     // Main container
     let container = document.createElement('div');
@@ -348,7 +350,7 @@ function createSpacer(year, firstSpacer) {
     var spacer = document.createElement('div');
     spacer.className = "spacer";
     spacer.textContent = year;
-    if(year === 9999) spacer.textContent = "Currently Playing";
+    //if(year === 9999) spacer.textContent = "Currently Playing";
     if(firstSpacer) spacer.style.marginTop = "110px";
     contentMaster.appendChild(spacer);
 }
@@ -363,48 +365,4 @@ function checkForSpacer(year) {
         currentYear = year;
         createSpacer(currentYear, false)
     }
-}
-
-function createPanelBody2(record) {
-    //if(afterReload) { currentYear = null; afterReload = false }
-    // Yearly spacer
-    let year = new Date(record["date_end"]).getFullYear();
-    if(currentYear == null) {
-        currentYear = year;
-        createSpacer(currentYear, true)
-    }
-    
-    if(currentYear != year) {
-        currentYear = year;
-        createSpacer(currentYear, false)
-    }
-    //
-    setReplayStatus(record["replay"]);
-    // Main panel
-    var mainPanel = document.createElement('div');
-    mainPanel.id = record["record_id"];
-    mainPanel.className = "mainPanel";
-    // Container for left and right panels
-    var panelContainer = document.createElement('div');
-    panelContainer.className = "panelContainer";
-    // Left side
-    var leftPanel = document.createElement('div');
-    // Right side
-    var rightPanel = document.createElement('div');
-    panelContainer.className = "rightPanel";
-
-    // Build everything together  
-    panelContainer.appendChild(leftPanel);
-    panelContainer.appendChild(rightPanel);
-    mainPanel.appendChild(panelContainer);
-
-    leftPanel.appendChild(addImage(record["cover_img_path"]));
-    rightPanel.appendChild(renderData(record));
-    let url = `url('${setRecordBackground(record["location_name"])}')`;
-    mainPanel.style.backgroundImage = url;
-    mainPanel.addEventListener("click", (event) => {
-        //openRecord(record);
-        mainPanel.classList.toggle('flipped');
-    });
-    return mainPanel;
 }

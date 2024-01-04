@@ -142,10 +142,11 @@ function addButtonClick(record) {
     let modalContent = document.getElementById("modal-content");
     let editModeInfo = document.getElementById("edit-mode");
     let span = document.getElementsByClassName("close")[0];
-    var selectElement = document.getElementById("location");
+    let selectElement = document.getElementById("location");
+
     selectElement.innerHTML = '';
     locationList.forEach(function (location) {
-    var option = document.createElement("option");
+    let option = document.createElement("option");
     option.text = location.name;
     selectElement.appendChild(option);
     });
@@ -155,12 +156,12 @@ function addButtonClick(record) {
         modalContent.style.border = "1px solid #fff";
         document.getElementById('start_date').value = getCurrentDate();
         document.getElementById("location").focus();
+        document.getElementById("deleteButton").style.visibility = "hidden";
     }
     else {
         document.getElementById('img-cover-text').innerText = '';
         modal.style.display = "inline-block";
         modalContent.style.border = "1px solid #fff";
-        editModeInfo.style.display = "inline-block";
         updateForm(record);
 
     }
@@ -345,4 +346,74 @@ function calcDaysBetweenDates(startDate, endDate) {
 function countPlaythroughs(name) {
         const filteredRecords = recordList.filter(record => record["name"] === name);
         return filteredRecords.length;
+}
+
+function askForDelete() {
+    Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: null,
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, go back!',
+        customClass: {
+            popup: 'swal-popup-class',
+            title: 'swal-title-class',
+            content: 'swal-content-class',
+            confirmButton: 'swal-confirm-button-class',
+            cancelButton: 'swal-cancel-button-class',
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteRecord();
+        } else {
+            // User clicked "No, go back" or closed the dialog
+            // Handle any additional logic here if needed
+        }
+    });
+}
+
+function deleteRecord() {
+    let recordId = document.getElementById("record-id").value;
+    try {
+        sqlDeleteRequest(recordId)
+        .then(() => {
+            let modal = document.getElementById("dialogModal");
+            modal.style.display = "none";
+            filter = "std";
+            let updateMsg = document.getElementById("title").value + ' has been deleted.';
+            editMode = false;
+            localStorage.setItem('playedGamesList', JSON.stringify(playedGamesList));
+            localStorage.setItem('updateMsg', JSON.stringify(updateMsg));
+            // Reload the page only after updating playedGamesList
+            window.location.href = window.location.href;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            notify("Something went terribly wrong: " + error.message, "warn");
+        }); 
+    } catch (error) {
+        console.error("Error in try block:", error);
+        notify("Something went terribly wrong...", "warn");
+    }
+}
+
+function sqlDeleteRequest(recordId) {
+    return new Promise((resolve, reject) => {
+        let jsonData = JSON.stringify({ record_id: recordId });
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "php/sql_delete.php", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    resolve(response.title);
+                } else {
+                    reject(new Error("Failed to make the request. Status: " + xhr.status));
+                }
+            }
+        };
+        // Send the JSON data to the server
+        xhr.send(jsonData);
+    });
 }
