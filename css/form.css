@@ -17,7 +17,7 @@
   padding: 20px;
   border: 1px solid #fff;
   width: 1410px;
-  margin-top: 205px;
+  margin-top: 230px;
 }
 
 /* The Close Button */
@@ -273,6 +273,24 @@ input[type="checkbox"] {
 
 .form-button-reset:hover {
   background: dodgerblue url('../img/buttons/reset.png') no-repeat center;
+}
+
+.form-button-delete {
+  color: #000;
+  padding: 10px 20px;
+  margin-left: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 0px;
+  width: 50px;
+  height: 30px;
+  background: #fff url('../img/buttons/delete.png') no-repeat center;
+  padding: 2px 8px;
+  margin-left: -52px;
+}
+
+.form-button-delete:hover {
+  background: red url('../img/buttons/delete.png') no-repeat center;
 }
 
 /* CHECKMARK */

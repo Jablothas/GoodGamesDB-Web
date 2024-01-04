@@ -31,6 +31,7 @@ function get_records($db) {
         note,
         records.status,
         replay,
+        difficulty,
         score_id,
         gameplay,
         presentation,

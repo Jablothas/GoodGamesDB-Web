@@ -10,12 +10,14 @@ validateSession();
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/form.css">
+        <link rel="stylesheet" type="text/css" href="css/swal.css">
         <script src="js/components/jquery-3.7.1.js"></script>
         <script src="js/components/notify.js"></script>
+        <script src="js/components/sweetalert2.all.min.js"></script>
         <script src="js/functions.js"></script>
         <script src="js/record.js"></script>
         <script src="js/input.js"></script>
-        <title>GoodGamesDB 0.4.21</title>
+        <title>GoodGamesDB 0.5.1</title>
     </head>
     <header>
         <div class="header">
@@ -87,11 +89,11 @@ validateSession();
                             <br>Game
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="title" list="games-list" name="title" onblur="checkFormByGame()">
+                            <input class="basic-input" type="text" id="title" list="games-list" name="title" onblur="checkFormByGame(), getPlaytime()">
                             <datalist id="games-list">
                              </datalist>
                         </div>
-                        <div id="steam-appid-label">
+                        <div id="steam-appid-label" hidden>
                             <br>AppId (Steam)
                         </div>
                         <div hidden>
@@ -104,7 +106,7 @@ validateSession();
                             <input class="basic-input" type="text" id="score-id" name="score-id" hidden>
                         </div>
                         <div>
-                            <input class="basic-input" type="text" id="steam-appid" name="steam-appid" onblur="getPlaytime()">
+                            <input class="basic-input" type="text" id="steam-appid" name="steam-appid" hidden>
                         </div>
                         <div class="start_date_check">
                             <br>Start date
@@ -118,6 +120,12 @@ validateSession();
                         </div>
                         <div>
                             <input class="basic-input" type="date" id="end_date" name="end_date">
+                        </div>
+                        <div>
+                            <br>Difficulty setting
+                        </div>
+                        <div>
+                            <input class="basic-input" type="text" id="difficulty" name="difficulty" value="default">
                         </div>
                         <div>
                             <br>Playtime in hours
@@ -257,6 +265,7 @@ validateSession();
             </form>
             <div class="submit-div">
                 <button class="form-button" id="saveButton" onclick="saveNewEntry()"></button><button class="form-button-reset" id="cancelButton" onclick="resetEntry()"></button>
+                <button class="form-button-delete" id="deleteButton" onclick="askForDelete()"></button>
             </div>
             
             </div>    

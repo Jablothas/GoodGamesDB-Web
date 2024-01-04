@@ -12,6 +12,7 @@ function insert_new($db, $data) {
     $title = $data['title'];
     // $title = str_replace("'", "´", $title); !!! MAYBE NEEDED SOMEDAY CAUSE OF SQL ERROR
     $locationName = $data['location'];  // Assuming you have location name in the data
+    $difficulty = $data['difficulty'];
     $replay = strtoupper($data['replay']);
     $status = strtoupper($data['status']);
     $steamAppid = $data['steamAppid'];
@@ -107,6 +108,7 @@ function insert_new($db, $data) {
             type,
             date_start, 
             date_end,
+            difficulty,
             playtime,
             steam_appid,
             score,
@@ -120,6 +122,7 @@ function insert_new($db, $data) {
             :type,
             :date_start,
             :date_end,
+            :difficulty,
             :playtime,
             :steam_appid,
             :score,
@@ -136,6 +139,7 @@ function insert_new($db, $data) {
     $insertRecordsSQL->bindValue(':type', "FULL");
     $insertRecordsSQL->bindParam(':date_start', $date_start);
     $insertRecordsSQL->bindParam(':date_end', $date_end);
+    $insertRecordsSQL->bindParam(':difficulty', $difficulty);
     $insertRecordsSQL->bindParam(':playtime', $playtime);
     $insertRecordsSQL->bindParam(':steam_appid', $steamAppid);
     $insertRecordsSQL->bindParam(':score', $scoreID);  // Use the retrieved score ID
