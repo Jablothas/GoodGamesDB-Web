@@ -21,6 +21,7 @@ function updateData($db, $data) {
     } else {
         $date_end = $data['date_end'];
     }
+    $difficulty = $data['difficulty'];
     $playtime = $data['playtime'];
     $note = $data['note'];
     $gameplay = $data['gameplay'];
@@ -87,6 +88,7 @@ function updateData($db, $data) {
             type = :type,
             date_start = :date_start,
             date_end = :date_end,
+            difficulty = :difficulty,
             playtime = :playtime,
             steam_appid = :steam_appid,
             score = :score,
@@ -106,6 +108,7 @@ function updateData($db, $data) {
     $updateRecordsSQL->bindValue(':type', "FULL");
     $updateRecordsSQL->bindParam(':date_start', $date_start);
     $updateRecordsSQL->bindParam(':date_end', $date_end);
+    $updateRecordsSQL->bindParam(':difficulty', $difficulty);
     $updateRecordsSQL->bindParam(':playtime', $playtime);
     $updateRecordsSQL->bindParam(':steam_appid', $steamAppid);
     $updateRecordsSQL->bindParam(':score', $score_id);  // Use the retrieved score ID

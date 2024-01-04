@@ -101,8 +101,8 @@ function checkIfSteam() {
     let input = document.getElementById("location");
     let appid = document.getElementById("steam-appid");
     let appid_label = document.getElementById("steam-appid-label");
-    appid.style.display = "block";
-    appid_label.style.display = "block";
+    appid.style.display = "none";
+    appid_label.style.display = "none";
     if (input) {
         let location = input.value;
         if(location == "Steam") {
@@ -214,6 +214,7 @@ function saveNewEntry() {
     let steamAppid = document.getElementById("steam-appid").value;
     let date_start = document.getElementById("start_date").value;
     let date_end = document.getElementById("end_date").value;
+    let difficulty = document.getElementById("difficulty").value;
     let playtime = document.getElementById("playtime").value;
     let note = document.getElementById("note").value;
     let gameplay = document.getElementById("gameplay_value").innerHTML
@@ -251,6 +252,7 @@ function saveNewEntry() {
         steamAppid: steamAppid,
         date_start: date_start,
         date_end: date_end,
+        difficulty: difficulty,
         playtime: playtime,
         note: note,
         gameplay: gameplay,
@@ -403,6 +405,7 @@ function updateForm(record) {
     document.getElementById("steam-appid").value = record["steam_appid"];
     document.getElementById("start_date").value = record["date_start"];
     document.getElementById("end_date").value = record["date_end"];
+    document.getElementById("difficulty").value = record["difficulty"];
     if(status == "Playing") document.getElementById("end_date").value = '';
 
     document.getElementById("playtime").value = record['playtime'];

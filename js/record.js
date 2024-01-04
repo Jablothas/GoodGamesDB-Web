@@ -148,6 +148,7 @@ function addStats(record) {
     let playtime = record["playtime"];
     let playthroughCount = countPlaythroughs(record["name"]);
     let timeTimesString = "";
+    let difficulty = record["difficulty"];
     if(playthroughCount == 1) timeTimesString = "time";
     if(playthroughCount > 1 || playthroughCount == 0) timeTimesString = "times";
     if(record["date_start"] != '' && record["status"] != "PLAYING") { 
@@ -159,7 +160,7 @@ function addStats(record) {
     }
     container.appendChild(addStatsRow(days, "days", titleText));
     container.appendChild(addStatsRow(playtime, "hours",  "Total playtime"));
-    container.appendChild(addStatsRow(playthroughCount, timeTimesString, "Total playthroughs"));
+    container.appendChild(addStatsRow(difficulty, "", "Difficulty played on"));
     return container;
 }
 

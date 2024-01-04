@@ -1,4 +1,3 @@
-// globalsave
 var contentMaster = document.createElement('div');
 contentMaster.id = "content-master";
 var recordList = [];
