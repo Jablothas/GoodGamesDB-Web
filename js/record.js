@@ -2,8 +2,6 @@ var isReplay = false;
 var currentYear;
 var afterReload = false;
 
-
-
 function createPanelBody(record, splitter) {
     let url = `url('${setRecordBackground(record["location_name"])}')`;
     let date = new Date(record["date_end"]).getFullYear();
@@ -348,14 +346,26 @@ function setReplayStatus(replay) {
 }
 
 function createSpacer(year, firstSpacer) {
-    var spacer = document.createElement('div');
+    let recordCount = countEntriesByYear(year);
+    let container = document.createElement('div');
+    container.className = "spacer-container";
+    let spacer = document.createElement('div');
     spacer.className = "spacer";
     spacer.textContent = year;
-    //if(year === 9999) spacer.textContent = "Currently Playing";
-    if(firstSpacer) spacer.style.marginTop = "110px";
-    contentMaster.appendChild(spacer);
-}
-
+    let counter = document.createElement('div');
+    let icon = document.createElement('img');
+    icon.src = "img/status/completed.png";
+    icon.className = "counter-icon";
+    counter.className = "counter";
+    if(recordCount === 1) counter.textContent = " " + recordCount + "  game completed";
+    else counter.textContent = " " + recordCount + " games completed";
+    counter.className = "spacer-counter";
+    if (firstSpacer) { container.style.marginTop = "100px"; }
+    container.appendChild(spacer);
+    container.appendChild(icon);
+    container.appendChild(counter);
+    contentMaster.appendChild(container);
+  }
 function checkForSpacer(year) {
     if(currentYear == null) {
         currentYear = year;

@@ -237,14 +237,39 @@ body {
   align-items: center;
 }
 
+.spacer-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .spacer {
-  width: 500px;
   height: 20px;
   background-color: #0a0a0a;
   color: #fff;
   font-size: 22px;
   margin-top: 20px;
-  margin-left: 20px; 
+  margin-left: 18px;
+}
+
+.spacer-counter {
+  height: 20px;
+  background-color: #0a0a0a;
+  color: silver;
+  font-size: 14px;
+  margin-left: 4px; 
+  margin-top: 25px;
+}
+
+.counter-icon {
+  height: 20px;
+  width: 20px;
+  margin-top: 24px;
+  margin-left: 20px;
+}
+
+.counter {
+  font-size: 22px;
 }
 
 .panel-content-front .panel-content-back { 

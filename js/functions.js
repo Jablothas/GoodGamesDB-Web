@@ -416,3 +416,18 @@ function sqlDeleteRequest(recordId) {
         xhr.send(jsonData);
     });
 }
+
+function countEntriesByYear(targetYear) {
+    if (typeof targetYear !== 'number') {
+        console.error('Invalid input for targetYear. Please provide a valid number.');
+        return 0;
+    }
+    const filteredEntries = recordList.filter(entry => {
+        if (entry && entry["date_end"]) {
+            const year = new Date(entry["date_end"]).getFullYear();
+            return year === targetYear;
+        }
+        return false;
+    });
+    return filteredEntries.length;
+}
