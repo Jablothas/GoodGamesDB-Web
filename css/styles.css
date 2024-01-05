@@ -225,6 +225,7 @@ body {
   display: flex;
   align-items: flex-start;
   margin: 0;
+  /*background: linear-gradient(-135deg,dodgerblue 45px,#0f1114 0)*/
 }
 
 .panel-content-inner-front {
@@ -287,8 +288,10 @@ body {
 }
 
 .panel-content-back-title-scores {
+  font-size: 14px;
+  font-weight: bold;
   margin: 10px;
-  color: grey;
+  color: dodgerblue;
 }
 
 .scores {

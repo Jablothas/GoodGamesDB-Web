@@ -431,3 +431,16 @@ function countEntriesByYear(targetYear) {
     });
     return filteredEntries.length;
 }
+function countPlaythroughsByName(name, targetDate) {
+    // Create a copy of recordList to avoid modifying the original array
+    const filteredList = recordList.filter(record => record.name === name);
+
+    // Sort the copied array based on date_end in ascending order
+    const sortedList = [...filteredList].sort((a, b) => new Date(a.date_end) - new Date(b.date_end));
+
+    // Find the index of the record with the specified date in the sorted list
+    const index = sortedList.findIndex(record => record.date_end === targetDate);
+
+    // Return the playthrough number (add 1 to make it 1-indexed instead of 0-indexed)
+    return index + 1;
+}
