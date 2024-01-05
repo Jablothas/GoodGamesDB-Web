@@ -2,8 +2,6 @@ var isReplay = false;
 var currentYear;
 var afterReload = false;
 
-
-
 function createPanelBody(record, splitter) {
     let url = `url('${setRecordBackground(record["location_name"])}')`;
     let date = new Date(record["date_end"]).getFullYear();
@@ -77,6 +75,7 @@ function renderData(record) {
     // Main container
     var container = document.createElement('div');
     container.className = "panel-content-front";
+    if(record["replay"] === "YES") container.style.background = "linear-gradient(-135deg,#444444 45px,#0f1114 0)"
     // Header <TITLE>       -       <STATUS>
     var header = document.createElement('div');
     header.className = "panel-header-front";
@@ -101,8 +100,9 @@ function renderDataBackPanel(record) {
     container.className = "panel-container-back";
     let innerParent = document.createElement('div');
     let leftTitle = document.createElement('div');
-    leftTitle.textContent = "In-depth scoring";
     leftTitle.className = "panel-content-back-title-scores";
+    if(record["replay"] === "NO") leftTitle.textContent = "First playthrough";
+    if(record["replay"] === "YES") leftTitle.textContent = "Playthrough Nr. " + countPlaythroughsByName(record["name"], record["date_end"]);
     let innerChildCol1 = document.createElement('div');
     let innerChildCol2 = document.createElement('div');
     container.appendChild(leftTitle);
@@ -212,7 +212,7 @@ function setDates(date1, date2, status)
 
 
     if(status == "PLAYING") {
-        date_end.style.color = "#ffa404";
+        date_end.style.color = "dodgerblue";
         date_end.textContent = "in progress"
     }
     else if(status == "CANCELED") {
@@ -277,9 +277,6 @@ function createScoreDisplay(sum) {
     }
     // medal element
     if(sum >= 85) scoreContainer.appendChild(setMedal(sum));
-    if(isReplay) {
-        scoreContainer.appendChild(setReplay());
-    }
     return scoreContainer;
 }
 
@@ -320,7 +317,7 @@ function setStatus(status) {
             icon.src = "img/status/completed.png";
             break;  
         case 'PLAYING':
-            icon.src = "img/status/playing.png";
+            icon.src = "img/status/playing_new.png";
             break;
         case 'BREAK':
             icon.src = "img/status/break.png";
@@ -348,14 +345,26 @@ function setReplayStatus(replay) {
 }
 
 function createSpacer(year, firstSpacer) {
-    var spacer = document.createElement('div');
+    let recordCount = countEntriesByYear(year);
+    let container = document.createElement('div');
+    container.className = "spacer-container";
+    let spacer = document.createElement('div');
     spacer.className = "spacer";
     spacer.textContent = year;
-    //if(year === 9999) spacer.textContent = "Currently Playing";
-    if(firstSpacer) spacer.style.marginTop = "110px";
-    contentMaster.appendChild(spacer);
-}
-
+    let counter = document.createElement('div');
+    let icon = document.createElement('img');
+    icon.src = "img/status/completed.png";
+    icon.className = "counter-icon";
+    counter.className = "counter";
+    if(recordCount === 1) counter.textContent = " " + recordCount + "  game completed";
+    else counter.textContent = " " + recordCount + " games completed";
+    counter.className = "spacer-counter";
+    if (firstSpacer) { container.style.marginTop = "100px"; }
+    container.appendChild(spacer);
+    container.appendChild(icon);
+    container.appendChild(counter);
+    contentMaster.appendChild(container);
+  }
 function checkForSpacer(year) {
     if(currentYear == null) {
         currentYear = year;
