@@ -2,12 +2,11 @@
 session_start();
 
 function authenticateUser($password) {
-    // Replace this with your actual password check logic
     $correctPassword = "intheEnd12147!";
 
     if ($password == $correctPassword) {
         $_SESSION["authenticated"] = true;
-        $_SESSION["login_time"] = time(); // Add the login timestamp
+        $_SESSION["login_time"] = time(); 
         return true;
     } else {
         return false;
@@ -26,7 +25,7 @@ function validateSession() {
 }
 
 function isSessionExpired() {
-    $sessionTimeout = 60 * 60; // 15 minutes in seconds
+    $sessionTimeout = 60 * 60 * 12;
     $currentTime = time();
 
     // Check if the session has expired
