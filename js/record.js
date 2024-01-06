@@ -212,7 +212,7 @@ function setDates(date1, date2, status)
 
 
     if(status == "PLAYING") {
-        date_end.style.color = "dodgerblue";
+        date_end.style.color = "grey";
         date_end.textContent = "in progress"
     }
     else if(status == "CANCELED") {
@@ -317,7 +317,7 @@ function setStatus(status) {
             icon.src = "img/status/completed.png";
             break;  
         case 'PLAYING':
-            icon.src = "img/status/playing_new.png";
+            icon.src = "img/status/playing2.png";
             break;
         case 'BREAK':
             icon.src = "img/status/break.png";
