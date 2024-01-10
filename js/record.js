@@ -75,7 +75,7 @@ function renderData(record) {
     // Main container
     var container = document.createElement('div');
     container.className = "panel-content-front";
-    if(record["replay"] === "YES") container.style.background = "linear-gradient(-135deg,#444444 45px,#0f1114 0)"
+    if(record["replay"] === "YES") container.style.background = "linear-gradient(-135deg,dodgerblue 10px,#0f1114 0)"
     // Header <TITLE>       -       <STATUS>
     var header = document.createElement('div');
     header.className = "panel-header-front";
