@@ -7,6 +7,7 @@ var ratingList = [];
 var filter = "std";
 var keyword = "";
 var editMode = false;
+var hideCanceled = true;
 
 function checkSession() {
     $.ajax({
@@ -80,6 +81,7 @@ function buildGrid() {
         case 'std':
             contentMaster.innerHTML = '';
             for (let record of recordList) {
+                if(record["status"] === "CANCELED" && hideCanceled) continue;
                 contentMaster.appendChild(createPanelBody(record, true));
             }
             document.body.appendChild(contentMaster);    
@@ -233,6 +235,12 @@ function filterBySearch() {
         keyword = "";
         buildGrid();
     }
+}
+
+function switchHideCanceled() {
+    if(hideCanceled) hideCanceled = false;
+    else hideCanceled = true;
+    buildGrid();
 }
 
 function findPlayedGames() {
