@@ -28,7 +28,7 @@ validateSession();
             <div class="buttons">
                 <input class="search-input" id="searchbar" type="text" oninput="filterBySearch()">
                 <button id="addButton" class="button" onclick="addButtonClick()" disabled></button>
-                <button id="numbersButton" class="button" onclick="" hidden></button>
+                <button id="hide-canceled-button" class="button" onclick="switchHideCanceled()"></button>
                 <button id="settingsButton" class="button" onclick="" hidden></button>
                 <button id="logoutButton" class="button" onclick="logoutButton()"></button>
             </div>

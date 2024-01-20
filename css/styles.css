@@ -117,15 +117,15 @@ body {
   background: grey url('../img/buttons/add.png') no-repeat center;
 }
 
-.button#numbersButton {
+.button#hide-canceled-button {
   width: 50px;
   height: 30px;
-  background: #fff url('../img/buttons/chart.png') no-repeat center;
+  background: #fff url('../img/buttons/hidden4.png') no-repeat center;
   padding: 2px 8px;
 }
 
-.button#numbersButton:hover {
-  background: limegreen url('../img/buttons/chart.png') no-repeat center;
+.button#hide-canceled-button:hover {
+  background: limegreen url('../img/buttons/hidden4.png') no-repeat center;
 }
 
 .button#settingsButton {
