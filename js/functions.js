@@ -431,7 +431,7 @@ function countEntriesByYear(targetYear) {
         return 0;
     }
     const filteredEntries = recordList.filter(entry => {
-        if (entry && entry["date_end"]) {
+        if (entry && entry["date_end"] && entry["status"] != "CANCELED") {
             const year = new Date(entry["date_end"]).getFullYear();
             return year === targetYear;
         }
