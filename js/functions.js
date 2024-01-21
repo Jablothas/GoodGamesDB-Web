@@ -238,8 +238,8 @@ function filterBySearch() {
 }
 
 function switchHideCanceled() {
-    if(hideCanceled) hideCanceled = false;
-    else hideCanceled = true;
+    if(hideCanceled) { hideCanceled = false; document.getElementById("hide-canceled-button").style.backgroundImage = 'url(\'img/buttons/unfiltered.png\')'; }
+    else { hideCanceled = true; document.getElementById("hide-canceled-button").style.backgroundImage = 'url(\'img/buttons/filtered.png\')'; }
     buildGrid();
 }
 

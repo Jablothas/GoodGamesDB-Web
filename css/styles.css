@@ -120,12 +120,12 @@ body {
 .button#hide-canceled-button {
   width: 50px;
   height: 30px;
-  background: #fff url('../img/buttons/hidden4.png') no-repeat center;
+  background: #fff url('../img/buttons/filtered.png') no-repeat center;
   padding: 2px 8px;
 }
 
 .button#hide-canceled-button:hover {
-  background: limegreen url('../img/buttons/hidden4.png') no-repeat center;
+  background: limegreen url('../img/buttons/filtered.png') no-repeat center;
 }
 
 .button#settingsButton {
