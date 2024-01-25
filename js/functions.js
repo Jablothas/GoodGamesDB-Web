@@ -273,6 +273,7 @@ function findPlayedGames() {
         },
         error: function (request, error) {
             alert("Error Request: " + error + " - - Request: " + JSON.stringify(request));
+            addButton.disabled = false;
         }
     });
 }
