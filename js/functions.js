@@ -82,6 +82,7 @@ function buildGrid() {
             contentMaster.innerHTML = '';
             for (let record of recordList) {
                 if(record["status"] === "CANCELED" && hideCanceled) continue;
+                if(record["status"] === "ENDLESS" && hideCanceled) continue;
                 contentMaster.appendChild(createPanelBody(record, true));
             }
             document.body.appendChild(contentMaster);    
@@ -432,7 +433,7 @@ function countEntriesByYear(targetYear) {
         return 0;
     }
     const filteredEntries = recordList.filter(entry => {
-        if (entry && entry["date_end"] && entry["status"] != "CANCELED") {
+        if (entry && entry["date_end"] && entry["status"] != "CANCELED" && entry["status"] != "ENDLESS") {
             const year = new Date(entry["date_end"]).getFullYear();
             return year === targetYear;
         }
